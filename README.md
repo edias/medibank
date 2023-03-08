@@ -31,6 +31,6 @@ Create a proof of concept for an App that displays trend articles and allows the
 - Filter sources to be only for the English language
 - A note on the usage of certain Libraries, you can use libraries you would normally use in a real project, however, use good judgment when deciding which ones, for example, using a NewsAPI client is not acceptable
 
-## Allocated time
+## Allocated time and submission
 - Please provide submission no more than 3 days after received.
-- Submissions will only be accepted via GitHub.
+- After finishing the project, kindly compress it and send it via email to your recruiter. Make sure to eliminate any redundant build or generated files, as they can significantly increase the size of the compressed file.
