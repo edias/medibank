@@ -22,7 +22,6 @@ Create a proof of concept for an App that displays trend articles and allows the
 - Clarity over brevity
 - It is expected from the App to offer a good UX
 - **Programmatic UI with UIKit** _(Having experience with SwiftUI is valuable but we require this submission to use UIKit)_
-- RxSwift would be a bonus
 - Unit testing, provide coverage of important areas in the code
 
 ## Points of consideration
