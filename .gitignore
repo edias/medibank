@@ -1,0 +1,5 @@
+## Workspace
+*.xcworkspace
+
+## User settings
+xcuserdata/
