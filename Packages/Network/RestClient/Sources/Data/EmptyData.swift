@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EmptyData: Codable, Equatable {}
+public struct EmptyData: Codable, Equatable, Sendable {}
 
 extension EmptyData {
     var data: Data {

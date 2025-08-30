@@ -11,7 +11,7 @@ import Foundation
 ///
 /// This protocol abstracts URLSession's data fetching capability, enabling
 /// easier testing and implementation swapping.
-public protocol URLSessionProtocol {
+public protocol URLSessionProtocol: Sendable {
     /// Fetches data from the specified URL request.
     ///
     /// - Parameter request: The URL request to execute.

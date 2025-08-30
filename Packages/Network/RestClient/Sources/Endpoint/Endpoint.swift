@@ -12,10 +12,10 @@
 /// - AssociatedTypes:
 ///   - RequestData: Encodable request body type
 ///   - ResponseData: Decodable response type
-public protocol Endpoint {
+public protocol Endpoint: Sendable {
 
-    associatedtype RequestData: Encodable
-    associatedtype ResponseData: Decodable
+    associatedtype RequestData: Encodable & Sendable
+    associatedtype ResponseData: Decodable & Sendable
 
     /// HTTP method and optional request data
     var requestType: RequestType<RequestData> { get }
@@ -36,7 +36,7 @@ extension Endpoint {
     var queries: [[String: [String]]] { [] }
 
     /// Creates a request instance for this endpoint
-    func makeRequest() -> RestClientRequest<Self> {
+    public func makeRequest() -> RestClientRequest<Self> {
         RestClientRequest(self)
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Request types are the HTTP verbs used on REST APIs.
-public enum RequestType<E: Encodable> {
+public enum RequestType<E: Encodable & Sendable>: Sendable {
     case get
     case post(_ requestBody: E)
     case put(_ requestBody: E)

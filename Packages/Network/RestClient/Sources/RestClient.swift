@@ -8,7 +8,7 @@
 import Foundation
 
 // A protocol for sending network requests.
-public protocol RestClient {
+public protocol RestClient: Sendable {
 
     /// Send a network request.
     ///
@@ -18,7 +18,7 @@ public protocol RestClient {
 }
 
 /// Default implementation of the RestClient protocol.
-public class DefaultRestClient {
+public actor DefaultRestClient {
 
     /// The URL session used to perform network requests.
     ///
@@ -38,7 +38,7 @@ public class DefaultRestClient {
     ///   - session: The URL session to use for network requests.
     ///   - urlHostProvider: Provides base URL information for API endpoints.
     ///   - apiKeyProvider: Provides authentication credentials for API requests.
-    public convenience init(
+    public init(
         session: URLSessionProtocol = RestClientSession.shared,
         urlHostProvider: URLHostProvider,
         apiKeyProvider: APIKeyProvider

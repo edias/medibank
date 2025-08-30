@@ -13,19 +13,19 @@
 /// - Parameters:
 ///   - RequestData: Encodable request body type
 ///   - ResponseData: Decodable response type
-struct AnyEndpoint<RequestData: Encodable, ResponseData: Decodable>: Endpoint {
+public struct AnyEndpoint<RequestData: Encodable & Sendable, ResponseData: Decodable>: Endpoint {
 
     /// HTTP method and request data
-    let requestType: RequestType<RequestData>
+    public let requestType: RequestType<RequestData>
 
     /// Expected response type
-    let responseType: ResponseData.Type
+    public let responseType: ResponseData.Type
 
     /// API endpoint path
-    let path: String
+    public let path: String
 
     /// URL query parameters
-    let queries: [[String: [String]]]
+    public let queries: [[String: [String]]]
 
     /// Creates a type-erased endpoint
     init(
