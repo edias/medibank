@@ -195,6 +195,9 @@
 			);
 			mainGroup = F8D3B6832E626C4F00C59C08;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
 			projectDirPath = "";
@@ -402,6 +405,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -429,6 +433,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -550,6 +555,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Network/RestClient;
+		};
+/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = F8D3B6842E626C4F00C59C08 /* Project object */;
 }
