@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */ = {isa = PBXBuildFile; productRef = F866B9A62E62A5CA00841BE0 /* RestClient */; };
+		F866B9A92E62A5CA00841BE0 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F866B9A82E62A5CA00841BE0 /* SourceSelection */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F8D3B69C2E626C5100C59C08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F866B9A92E62A5CA00841BE0 /* SourceSelection in Frameworks */,
+				F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +79,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F866B9A52E62A5CA00841BE0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F8D3B6832E626C4F00C59C08 = {
 			isa = PBXGroup;
 			children = (
 				F8D3B68E2E626C4F00C59C08 /* Newsline */,
 				F8D3B69E2E626C5100C59C08 /* NewslineTests */,
 				F8D3B6A82E626C5100C59C08 /* NewslineUITests */,
+				F866B9A52E62A5CA00841BE0 /* Frameworks */,
 				F8D3B68D2E626C4F00C59C08 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +127,8 @@
 			);
 			name = Newsline;
 			packageProductDependencies = (
+				F866B9A62E62A5CA00841BE0 /* RestClient */,
+				F866B9A82E62A5CA00841BE0 /* SourceSelection */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -197,6 +214,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */,
+				F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -557,11 +575,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Features/SourceSeletion;
+		};
 		F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Network/RestClient;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F866B9A62E62A5CA00841BE0 /* RestClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */;
+			productName = RestClient;
+		};
+		F866B9A82E62A5CA00841BE0 /* SourceSelection */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */;
+			productName = SourceSelection;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F8D3B6842E626C4F00C59C08 /* Project object */;
 }
