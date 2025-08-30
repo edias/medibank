@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SourceSelection",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v15),
         .macOS(.v10_15)
@@ -26,6 +27,9 @@ let package = Package(
             name: "SourceSelection",
             dependencies: [
                 .product(name: "RestClient", package: "RestClient")
+            ],
+            resources: [
+                .process("Resources")
             ]),
         .testTarget(
             name: "SourceSelectionTests",

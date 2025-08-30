@@ -17,7 +17,7 @@ public protocol FeatureFactory {
     func makeRootView() -> RootView
 }
 
-public struct SourceSelectionFactory: FeatureFactory {
+public struct SourceSelectionFactory: @preconcurrency FeatureFactory {
 
     private let dependencies: SourceSelectionDependencies
 
@@ -25,7 +25,10 @@ public struct SourceSelectionFactory: FeatureFactory {
         self.dependencies = dependencies
     }
 
+    @MainActor
     public func makeRootView() -> some View {
-        SourceSelectionView()
+        let networkServices = DefaultSourcesNetworkServices(restClient: dependencies.restClient)
+        let viewModel = SourceSelectionViewModel(networkServices: networkServices)
+        return SourceSelectionView(viewModel)
     }
 }
