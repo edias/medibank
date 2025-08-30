@@ -17,9 +17,7 @@ struct SourceSelectionView: View {
     }
 
     var body: some View {
-
         NavigationView {
-
             List(viewModel.sources) { source in
                 SourceRowView(
                     source: source,

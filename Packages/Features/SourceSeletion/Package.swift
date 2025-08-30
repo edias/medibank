@@ -14,7 +14,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "SourceSelection",
-            targets: ["SourceSelection"]),
+            targets: ["SourceSelection"]
+        )
     ],
     dependencies: [
         .package(path: "../../Network/RestClient")
@@ -30,10 +31,11 @@ let package = Package(
             ],
             resources: [
                 .process("Resources")
-            ]),
+            ]
+        ),
         .testTarget(
             name: "SourceSelectionTests",
             dependencies: ["SourceSelection"]
-        ),
-    ],
+        )
+    ]
 )

@@ -23,7 +23,6 @@ final class SourceSelectionViewModel: ObservableObject {
 
     @MainActor
     func loadSources() async {
-
         do {
             sources = try await networkServices.fetchSources()
         } catch {

@@ -1,12 +1,12 @@
 //
-//  File.swift
+//  SourceSelectionFactory.swift
 //  SourceSelection
 //
 //  Created by Eduardo Dias on 30/08/2025.
 //
 
-import SwiftUI
 import RestClient
+import SwiftUI
 
 public protocol SourceSelectionDependencies {
     var restClient: RestClient { get }

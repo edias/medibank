@@ -10,7 +10,6 @@ import SwiftUI
 struct TagStyle: ViewModifier {
 
     func body(content: Content) -> some View {
-
         content
             .font(.caption2)
             .padding(.horizontal, Metrics.medium)

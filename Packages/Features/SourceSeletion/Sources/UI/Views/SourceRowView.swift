@@ -14,11 +14,8 @@ struct SourceRowView: View {
     let onToggle: () -> Void
 
     var body: some View {
-
         HStack {
-
             VStack(alignment: .leading, spacing: Metrics.small) {
-
                 Text(source.name)
                     .font(.headline)
 
@@ -28,10 +25,9 @@ struct SourceRowView: View {
                     .lineLimit(2)
 
                 HStack {
-
                     Text(source.category.capitalized)
                         .tagStyle()
-                    
+
                     Text(source.country.uppercased())
                         .tagStyle()
                 }
