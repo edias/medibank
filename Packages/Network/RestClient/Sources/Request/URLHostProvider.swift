@@ -8,11 +8,11 @@
 import Foundation
 
 /// Provides a URL host for network requests.
-protocol URLHostProvider {
+public protocol URLHostProvider {
     var urlHost: UrlHost { get }
 }
 
 /// Default implementation of URLHostProvider with configurable UrlHost.
-struct DefaultURLHostProvider: URLHostProvider {
-    let urlHost: UrlHost
+public struct DefaultURLHostProvider: URLHostProvider {
+    public let urlHost: UrlHost
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Request types are the HTTP verbs used on REST APIs.
-enum RequestType<E: Encodable> {
+public enum RequestType<E: Encodable> {
     case get
     case post(_ requestBody: E)
     case put(_ requestBody: E)
@@ -39,7 +39,7 @@ extension RequestType {
 
 /// The string representation of a HTTP method.
 extension RequestType: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         switch self {
         case .get: "GET"
         case .post: "POST"

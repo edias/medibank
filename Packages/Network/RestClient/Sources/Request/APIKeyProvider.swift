@@ -8,6 +8,6 @@
 import Foundation
 
 /// Provides an API key for authenticating network requests.
-protocol APIKeyProvider {
+public protocol APIKeyProvider {
     var apiKey: String? { get }
 }

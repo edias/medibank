@@ -8,7 +8,7 @@
 import Foundation
 
 // A protocol for sending network requests.
-protocol RestClient {
+public protocol RestClient {
 
     /// Send a network request.
     ///
@@ -18,7 +18,7 @@ protocol RestClient {
 }
 
 /// Default implementation of the RestClient protocol.
-class DefaultRestClient {
+public class DefaultRestClient {
 
     /// The URL session used to perform network requests.
     ///
@@ -38,7 +38,7 @@ class DefaultRestClient {
     ///   - session: The URL session to use for network requests.
     ///   - urlHostProvider: Provides base URL information for API endpoints.
     ///   - apiKeyProvider: Provides authentication credentials for API requests.
-    convenience init(
+    public convenience init(
         session: URLSessionProtocol = RestClientSession.shared,
         urlHostProvider: URLHostProvider,
         apiKeyProvider: APIKeyProvider
@@ -73,7 +73,7 @@ extension DefaultRestClient: RestClient {
     /// Executes a network request and returns the expected response body or throw a RestClientError.
     /// - Parameter clientRequest: A RestClientRequest to be executed.
     /// - Returns: An asynchronous response data.
-    func executeRequest<Endpoint>(_ clientRequest: RestClientRequest<Endpoint>) async throws -> Endpoint.ResponseData {
+    public func executeRequest<Endpoint>(_ clientRequest: RestClientRequest<Endpoint>) async throws -> Endpoint.ResponseData {
         do {
             let request = try requestPipeline.makeUrlRequest(clientRequest)
             let responseData = try await session.data(for: request)

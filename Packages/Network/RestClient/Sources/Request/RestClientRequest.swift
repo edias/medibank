@@ -6,7 +6,7 @@
 //
 
 /// A concrete implementation and configuration to execute a network request.
-struct RestClientRequest<EndpointInstance: Endpoint> {
+public struct RestClientRequest<EndpointInstance: Endpoint> {
 
     /// An instance of the Endpoint requested.
     let endpoint: EndpointInstance

@@ -11,7 +11,7 @@ import Foundation
 ///
 /// This protocol abstracts URLSession's data fetching capability, enabling
 /// easier testing and implementation swapping.
-protocol URLSessionProtocol {
+public protocol URLSessionProtocol {
     /// Fetches data from the specified URL request.
     ///
     /// - Parameter request: The URL request to execute.
@@ -28,9 +28,9 @@ extension URLSession: URLSessionProtocol {}
 /// Provides shared URLSession instances for REST client operations.
 ///
 /// Centralizes URLSession configuration management across the application.
-enum RestClientSession {
+public enum RestClientSession {
     /// Shared URLSession instance with default configuration.
     ///
     /// Suitable for most network requests with default caching and timeout behaviors.
-    static let shared = URLSession(configuration: .default)
+    public static let shared = URLSession(configuration: .default)
 }

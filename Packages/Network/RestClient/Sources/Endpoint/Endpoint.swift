@@ -12,7 +12,7 @@
 /// - AssociatedTypes:
 ///   - RequestData: Encodable request body type
 ///   - ResponseData: Decodable response type
-protocol Endpoint {
+public protocol Endpoint {
 
     associatedtype RequestData: Encodable
     associatedtype ResponseData: Decodable
