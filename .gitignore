@@ -3,3 +3,10 @@
 
 ## User settings
 xcuserdata/
+*.mdb
+
+## SPM
+.build/
+
+## User settings
+xcshareddata/
