@@ -5,25 +5,25 @@ import Storage
 @testable import Headlines
 
 @Suite("HeadlinesViewModel Tests")
+@MainActor
 struct HeadlinesViewModelTests {
     
     @Test("Initial state should have empty headlines")
-    func testInitialState() async throws {
+    func initialState() async throws {
 
         let mockNetworkServices = MockHeadlinesNetworkServices()
         let mockStorage = MockSelectionStorage()
-        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage)
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
         
         #expect(viewModel.headlines.isEmpty)
     }
     
     @Test("loadArticles should fetch headlines from network service")
-    @MainActor
-    func testLoadArticlesSuccess() async throws {
+    func loadArticlesSuccess() async throws {
 
         let mockNetworkServices = MockHeadlinesNetworkServices()
         let mockStorage = MockSelectionStorage()
-        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage)
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
         
         let expectedArticles = createMockArticles()
         mockNetworkServices.mockArticles = expectedArticles
@@ -38,12 +38,11 @@ struct HeadlinesViewModelTests {
     }
     
     @Test("loadArticles should handle network error gracefully")
-    @MainActor
-    func testLoadArticlesNetworkError() async throws {
+    func loadArticlesNetworkError() async throws {
 
         let mockNetworkServices = MockHeadlinesNetworkServices()
         let mockStorage = MockSelectionStorage()
-        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage)
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
         
         mockNetworkServices.shouldThrowError = true
         
@@ -54,12 +53,11 @@ struct HeadlinesViewModelTests {
     }
     
     @Test("loadArticles should use storage selections")
-    @MainActor
-    func testLoadArticlesUsesStorageSelections() async throws {
+    func loadArticlesUsesStorageSelections() async throws {
 
         let mockNetworkServices = MockHeadlinesNetworkServices()
         let mockStorage = MockSelectionStorage()
-        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage)
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
         
         let testSelections = ["bbc", "cnn", "reuters"]
         mockStorage.mockSelections = testSelections
@@ -74,6 +72,7 @@ struct HeadlinesViewModelTests {
 // MARK: - Mock Classes
 
 final class MockHeadlinesNetworkServices: HeadlinesNetworkServices {
+    
     var mockArticles: [Article] = []
     var shouldThrowError = false
     var fetchHeadlinesCalled = false
@@ -120,7 +119,7 @@ final class MockSelectionStorage: SelectionStorage {
 
 private func createMockArticles() -> [Article] {
 
-    let source = Headlines.Source(id: "test-source", name: "Test Source")
+    let source = Storage.ArticleSource(id: "test-source", name: "Test Source")
     
     return [
         Article(
@@ -130,8 +129,7 @@ private func createMockArticles() -> [Article] {
             description: "This is a test article description",
             url: "https://example.com/article1",
             urlToImage: "https://example.com/image1.jpg",
-            publishedAt: "2025-08-31T10:00:00Z",
-            content: "Test content 1"
+            publishedAt: "2025-08-31T10:00:00Z"
         ),
         Article(
             source: source,
@@ -140,8 +138,7 @@ private func createMockArticles() -> [Article] {
             description: "This is another test article description",
             url: "https://example.com/article2",
             urlToImage: "https://example.com/image2.jpg",
-            publishedAt: "2025-08-31T11:00:00Z",
-            content: "Test content 2"
+            publishedAt: "2025-08-31T11:00:00Z"
         )
     ]
 }

@@ -7,7 +7,9 @@
 
 import Testing
 import RestClient
+
 @testable import Headlines
+@testable import Storage
 
 @Suite("HeadlinesNetworkServices Tests")
 struct HeadlinesNetworkServicesTests {
@@ -125,8 +127,8 @@ final class MockRestClient: RestClient, @unchecked Sendable {
 
 private func createMockArticles() -> [Article] {
 
-    let source = Headlines.Source(id: "test-source", name: "Test Source")
-    
+    let source = Storage.ArticleSource(id: "test-source", name: "Test Source")
+
     return [
         Article(
             source: source,
@@ -136,7 +138,6 @@ private func createMockArticles() -> [Article] {
             url: "https://example.com/breaking-news",
             urlToImage: "https://example.com/images/breaking-news.jpg",
             publishedAt: "2025-08-31T10:00:00Z",
-            content: "Full content of the test article goes here..."
         ),
         Article(
             source: source,
@@ -146,7 +147,6 @@ private func createMockArticles() -> [Article] {
             url: "https://example.com/tech-update",
             urlToImage: "https://example.com/images/tech-update.jpg",
             publishedAt: "2025-08-31T11:30:00Z",
-            content: "Detailed technology article content..."
         )
     ]
 }

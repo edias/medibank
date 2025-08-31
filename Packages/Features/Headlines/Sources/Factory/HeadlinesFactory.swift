@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HeadlinesFactory.swift
 //  Headlines
 //
 //  Created by Eduardo Dias on 31/08/2025.
@@ -13,7 +13,7 @@ import Storage
 public protocol HeadlinesDependencies {
     var restClient: RestClient { get }
     var selectionStorage: SelectionStorage { get }
-    var onTapHeadline: @MainActor (URL) -> Void { get }
+    var onTapHeadline: @MainActor (Article) -> Void { get }
 }
 
 public protocol FeatureFactory {

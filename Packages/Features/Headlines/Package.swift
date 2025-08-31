@@ -31,7 +31,7 @@ let package = Package(
         ),
         .testTarget(
             name: "HeadlinesTests",
-            dependencies: ["Headlines"]
+            dependencies: ["Headlines", .product(name: "Storage", package: "Storage")],
         ),
     ]
 )

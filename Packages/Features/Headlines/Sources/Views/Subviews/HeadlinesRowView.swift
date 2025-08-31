@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Storage
 
 struct HeadlinesRowView: View {
 
     let article: Article
     
-    let onTapHeadline: (String) -> Void
+    let onTapHeadline: (Article) -> Void
 
     var body: some View {
 
@@ -51,7 +52,7 @@ struct HeadlinesRowView: View {
         }
         .padding(.horizontal)
         .onTapGesture {
-            onTapHeadline(article.url)
+            onTapHeadline(article)
         }
     }
 }

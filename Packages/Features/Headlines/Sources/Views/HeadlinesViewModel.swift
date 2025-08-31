@@ -19,9 +19,9 @@ final class HeadlinesViewModel: ObservableObject {
 
     private let storage: SelectionStorage
 
-    private let onTapHeadline: @MainActor (URL) -> Void
+    private let onTapHeadline: @MainActor (Article) -> Void
 
-    init(networkServices: HeadlinesNetworkServices, storage: SelectionStorage, onTapHeadline: @escaping @MainActor (URL) -> Void) {
+    init(networkServices: HeadlinesNetworkServices, storage: SelectionStorage, onTapHeadline: @escaping @MainActor (Article) -> Void) {
         self.networkServices = networkServices
         self.storage = storage
         self.onTapHeadline = onTapHeadline
@@ -33,14 +33,14 @@ final class HeadlinesViewModel: ObservableObject {
         do {
             headlines = try await networkServices.fetchHeadlines(bySources: storage.selections)
         } catch {
+            print(error)
             headlines = []
             // TODO: Implement failure scenarioa
         }
     }
 
     @MainActor
-    func onTapHeadline(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        onTapHeadline(url)
+    func onTapHeadline(article: Article) {
+        onTapHeadline(article)
     }
 }

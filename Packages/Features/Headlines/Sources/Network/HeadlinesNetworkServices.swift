@@ -6,6 +6,7 @@
 //
 
 import RestClient
+import Storage
 
 protocol HeadlinesNetworkServices {
     @MainActor
