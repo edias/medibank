@@ -102,16 +102,16 @@ final class MockSelectionStorage: SelectionStorage {
         Just(mockSelections).eraseToAnyPublisher()
     }
     
-    func toggleSelection(for source: Storage.Source) {
-        if mockSelections.contains(source.id) {
-            mockSelections.removeAll { $0 == source.id }
+    func toggleSelection(for sourceId: String) {
+        if mockSelections.contains(sourceId) {
+            mockSelections.removeAll { $0 == sourceId }
         } else {
-            mockSelections.append(source.id)
+            mockSelections.append(sourceId)
         }
     }
     
-    func isSelected(_ source: Storage.Source) -> Bool {
-        return mockSelections.contains(source.id)
+    func isSelected(_ sourceId: String) -> Bool {
+        return mockSelections.contains(sourceId)
     }
 }
 
