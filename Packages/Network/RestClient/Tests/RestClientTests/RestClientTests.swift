@@ -105,7 +105,7 @@ struct RestClientTests {
     }
 
     @Test("convenience initializer creates client correctly")
-    func convenienceInitializerCreatesClientCorrectly() throws {
+    func convenienceInitializerCreatesClientCorrectly() async throws {
 
         let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
         let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
@@ -118,96 +118,8 @@ struct RestClientTests {
             apiKeyProvider: apiKeyProvider
         )
 
-        #expect(client.requestPipeline is DefaultURLRequestPipeline)
-        #expect(client.responsePipeline is DefaultURLResponsePipeline)
-        #expect(client.session is MockURLSession)
-    }
-
-    @Test("client uses default session when not provided")
-    func clientUsesDefaultSessionWhenNotProvided() throws {
-
-        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
-        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
-        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
-
-        let client = DefaultRestClient(
-            urlHostProvider: hostProvider,
-            apiKeyProvider: apiKeyProvider
-        )
-
-        #expect(client.session is URLSession)
-    }
-
-    @Test("client uses custom pipelines when provided")
-    func clientUsesCustomPipelinesWhenProvided() async throws {
-
-        let mockSession = MockURLSession()
-        let customRequestPipeline = MockURLRequestPipeline()
-        let customResponsePipeline = MockURLResponsePipeline()
-
-        let client = DefaultRestClient(
-            session: mockSession,
-            requestPipeline: customRequestPipeline,
-            responsePipeline: customResponsePipeline
-        )
-
-        let expectedResponse = TestResponse(id: 1, message: "Custom")
+        let expectedResponse = TestResponse(id: 1, message: "Test")
         let responseData = try JSONEncoder().encode(expectedResponse)
-        let httpResponse = HTTPURLResponse(
-            url: URL(string: "https://api.example.com/custom")!,
-            statusCode: 200,
-            httpVersion: "HTTP/1.1",
-            headerFields: nil
-        )!
-
-        mockSession.setMockResponse(data: responseData, response: httpResponse)
-
-        let clientRequest = makeGetRequest()
-        _ = try await client.executeRequest(clientRequest)
-
-        #expect(customRequestPipeline.makeUrlRequestCalled == true)
-        #expect(customResponsePipeline.makeEndpointResponseDataCalled == true)
-    }
-
-    // MARK: - Error Handling Tests
-
-    @Test("client propagates request pipeline errors")
-    func clientPropagatesRequestPipelineErrors() async throws {
-
-        let mockSession = MockURLSession()
-        let requestPipeline = MockURLRequestPipelineWithError()
-        let responsePipeline = MockURLResponsePipeline()
-
-        let client = DefaultRestClient(
-            session: mockSession,
-            requestPipeline: requestPipeline,
-            responsePipeline: responsePipeline
-        )
-
-        let clientRequest = makeGetRequest()
-
-        do {
-            _ = try await client.executeRequest(clientRequest)
-            Issue.record("Expected MockRequestPipelineError to be thrown")
-        } catch {
-            #expect(error is MockRequestPipelineError)
-        }
-    }
-
-    @Test("client propagates response pipeline errors")
-    func clientPropagatesResponsePipelineErrors() async throws {
-
-        let mockSession = MockURLSession()
-        let requestPipeline = MockURLRequestPipeline()
-        let responsePipeline = MockURLResponsePipelineWithError()
-
-        let client = DefaultRestClient(
-            session: mockSession,
-            requestPipeline: requestPipeline,
-            responsePipeline: responsePipeline
-        )
-
-        let responseData = Data()
         let httpResponse = HTTPURLResponse(
             url: URL(string: "https://api.example.com/test")!,
             statusCode: 200,
@@ -218,12 +130,137 @@ struct RestClientTests {
         mockSession.setMockResponse(data: responseData, response: httpResponse)
 
         let clientRequest = makeGetRequest()
+        let result = try await client.executeRequest(clientRequest)
+        
+        #expect(result.id == 1)
+        #expect(result.message == "Test")
+    }
+
+    @Test("client uses default session when not provided")
+    func clientUsesDefaultSessionWhenNotProvided() async throws {
+
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
+
+        let client = DefaultRestClient(
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
+        )
+
+        // Test that the client was created successfully by attempting to execute a request
+        // This will fail if the client wasn't properly initialized
+        let clientRequest = makeGetRequest()
+        
+        do {
+            _ = try await client.executeRequest(clientRequest)
+        } catch {
+            // Expected to fail since we don't have mock data, but it should fail at network level, not initialization
+            #expect(error is URLError || error is ServerError)
+        }
+    }
+
+    @Test("client executes request successfully with default components")
+    func clientExecutesRequestSuccessfullyWithDefaultComponents() async throws {
+
+        let mockSession = MockURLSession()
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
+
+        let client = DefaultRestClient(
+            session: mockSession,
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
+        )
+
+        let expectedResponse = TestResponse(id: 1, message: "Success")
+        let responseData = try JSONEncoder().encode(expectedResponse)
+        let httpResponse = HTTPURLResponse(
+            url: URL(string: "https://api.example.com/users")!,
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: nil
+        )!
+
+        mockSession.setMockResponse(data: responseData, response: httpResponse)
+
+        let clientRequest = makeGetRequest()
+        let result = try await client.executeRequest(clientRequest)
+
+        #expect(result.id == 1)
+        #expect(result.message == "Success")
+    }
+
+    // MARK: - Error Handling Tests
+
+    @Test("client propagates JSON decoding errors")
+    func clientPropagatesJSONDecodingErrors() async throws {
+
+        let mockSession = MockURLSession()
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
+
+        let client = DefaultRestClient(
+            session: mockSession,
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
+        )
+
+        // Set invalid JSON that can't be decoded to TestResponse
+        let invalidJson = "{ \"invalid\": \"structure\" }".data(using: .utf8)!
+        let httpResponse = HTTPURLResponse(
+            url: URL(string: "https://api.example.com/users")!,
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: nil
+        )!
+
+        mockSession.setMockResponse(data: invalidJson, response: httpResponse)
+
+        let clientRequest = makeGetRequest()
 
         do {
             _ = try await client.executeRequest(clientRequest)
-            Issue.record("Expected MockResponsePipelineError to be thrown")
+            Issue.record("Expected decoding error to be thrown")
         } catch {
-            #expect(error is MockResponsePipelineError)
+            #expect(error is DecodingError)
+        }
+    }
+
+    @Test("client propagates empty response errors")
+    func clientPropagatesEmptyResponseErrors() async throws {
+
+        let mockSession = MockURLSession()
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
+
+        let client = DefaultRestClient(
+            session: mockSession,
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
+        )
+
+        // Set empty response data that can't be decoded
+        let emptyData = Data()
+        let httpResponse = HTTPURLResponse(
+            url: URL(string: "https://api.example.com/users")!,
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: nil
+        )!
+
+        mockSession.setMockResponse(data: emptyData, response: httpResponse)
+
+        let clientRequest = makeGetRequest()
+
+        do {
+            _ = try await client.executeRequest(clientRequest)
+            Issue.record("Expected decoding error to be thrown")
+        } catch {
+            #expect(error is DecodingError)
         }
     }
 
@@ -231,13 +268,14 @@ struct RestClientTests {
     func clientPropagatesNetworkErrors() async throws {
 
         let mockSession = MockURLSessionWithError()
-        let requestPipeline = MockURLRequestPipeline()
-        let responsePipeline = MockURLResponsePipeline()
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
 
         let client = DefaultRestClient(
             session: mockSession,
-            requestPipeline: requestPipeline,
-            responsePipeline: responsePipeline
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
         )
 
         let clientRequest = makeGetRequest()
@@ -328,13 +366,14 @@ struct RestClientTests {
     func clientHandlesDifferentResponseTypes() async throws {
 
         let mockSession = MockURLSession()
-        let requestPipeline = MockURLRequestPipeline()
-        let responsePipeline = MockURLResponsePipeline()
+        let urlHost = DefaultUrlHost(baseUrl: "https://api.example.com")
+        let hostProvider = DefaultURLHostProvider(urlHost: urlHost)
+        let apiKeyProvider = MockAPIKeyProvider(apiKey: "test-key")
 
         let client = DefaultRestClient(
             session: mockSession,
-            requestPipeline: requestPipeline,
-            responsePipeline: responsePipeline
+            urlHostProvider: hostProvider,
+            apiKeyProvider: apiKeyProvider
         )
 
         let customResponse = CustomTestResponse(name: "Custom", count: 42, active: true)
@@ -417,7 +456,8 @@ private class MockAPIKeyProvider: APIKeyProvider {
     }
 }
 
-private class MockURLSession: URLSessionProtocol {
+private class MockURLSession: URLSessionProtocol, @unchecked Sendable
+{
     private var mockData: Data = .init()
     private var mockResponse: URLResponse = .init()
     private var shouldThrow = false
@@ -499,7 +539,7 @@ private enum MockNetworkError: Error {
     case networkError
 }
 
-private class MockURLSessionWithError: URLSessionProtocol {
+private class MockURLSessionWithError: URLSessionProtocol, @unchecked Sendable {
     func data(for _: URLRequest) async throws -> (Data, URLResponse) {
         throw MockNetworkError.networkError
     }

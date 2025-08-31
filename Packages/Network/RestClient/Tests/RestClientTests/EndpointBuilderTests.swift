@@ -240,26 +240,108 @@ struct EndpointBuilderTests {
         #expect(endpoint.path == "")
     }
 
-    @Test("empty query value")
+    @Test("empty query value is ignored")
     func emptyQueryValue() {
         let endpoint = EndpointBuilder<TestRequest, TestResponse>
             .get()
             .withQuery("empty", value: "")
             .build()
 
-        #expect(endpoint.queries.count == 1)
-        #expect(endpoint.queries[0]["empty"] == [""])
+        #expect(endpoint.queries.isEmpty)
     }
 
-    @Test("empty query values array")
+    @Test("empty query values array is ignored")
     func emptyQueryValuesArray() {
         let endpoint = EndpointBuilder<TestRequest, TestResponse>
             .get()
             .withQuery("empty", values: [])
             .build()
 
+        #expect(endpoint.queries.isEmpty)
+    }
+
+    @Test("empty single value with other queries")
+    func emptyQueryValueWithOtherQueries() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("category", value: "news")
+            .withQuery("empty", value: "")
+            .withQuery("limit", value: "10")
+            .build()
+
+        #expect(endpoint.queries.count == 2)
+        #expect(endpoint.queries[0]["category"] == ["news"])
+        #expect(endpoint.queries[1]["limit"] == ["10"])
+    }
+
+    @Test("empty values array with other queries")
+    func emptyQueryValuesWithOtherQueries() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("tags", values: ["tech", "mobile"])
+            .withQuery("empty", values: [])
+            .withQuery("sort", value: "date")
+            .build()
+
+        #expect(endpoint.queries.count == 2)
+        #expect(endpoint.queries[0]["tags"] == ["tech", "mobile"])
+        #expect(endpoint.queries[1]["sort"] == ["date"])
+    }
+
+    @Test("multiple empty values are all ignored")
+    func multipleEmptyValues() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("empty1", value: "")
+            .withQuery("empty2", values: [])
+            .withQuery("empty3", value: "")
+            .build()
+
+        #expect(endpoint.queries.isEmpty)
+    }
+
+    @Test("whitespace-only string value is ignored")
+    func whitespaceQueryValue() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("whitespace", value: " ")
+            .build()
+
+        #expect(endpoint.queries.isEmpty)
+    }
+
+    @Test("array with empty and whitespace elements filters them out")
+    func arrayWithEmptyStringElements() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("mixed", values: ["value1", "", "value2", "  ", "\n", "value3"])
+            .build()
+
         #expect(endpoint.queries.count == 1)
-        #expect(endpoint.queries[0]["empty"] == [])
+        #expect(endpoint.queries[0]["mixed"] == ["value1", "value2", "value3"])
+    }
+
+    @Test("array with only empty and whitespace elements is ignored")
+    func arrayWithOnlyEmptyAndWhitespaceElements() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("empty", values: ["", "  ", "\n", "\t"])
+            .build()
+
+        #expect(endpoint.queries.isEmpty)
+    }
+
+    @Test("different types of whitespace are ignored")
+    func differentTypesOfWhitespace() {
+        let endpoint = EndpointBuilder<TestRequest, TestResponse>
+            .get()
+            .withQuery("spaces", value: "   ")
+            .withQuery("tabs", value: "\t\t")
+            .withQuery("newlines", value: "\n\r")
+            .withQuery("mixed", value: " \n\t ")
+            .build()
+
+        #expect(endpoint.queries.isEmpty)
     }
 }
 
