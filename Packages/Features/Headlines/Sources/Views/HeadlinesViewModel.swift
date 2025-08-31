@@ -33,6 +33,7 @@ final class HeadlinesViewModel: ObservableObject {
         do {
             headlines = try await networkServices.fetchHeadlines(bySources: storage.selections)
         } catch {
+            headlines = []
             // TODO: Implement failure scenarioa
         }
     }
