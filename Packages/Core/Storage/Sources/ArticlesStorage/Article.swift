@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Article: Codable, Identifiable, Sendable {
-    
+
     public var id: UUID = .init()
     public let source: ArticleSource
     public let author: String?
@@ -17,6 +17,16 @@ public struct Article: Codable, Identifiable, Sendable {
     public let url: String
     public let urlToImage: String
     public let publishedAt: String
+
+    public init(source: ArticleSource, author: String? = nil, title: String, description: String, url: String, urlToImage: String, publishedAt: String) {
+        self.source = source
+        self.author = author
+        self.title = title
+        self.description = description
+        self.url = url
+        self.urlToImage = urlToImage
+        self.publishedAt = publishedAt
+    }
 
     enum CodingKeys: String, CodingKey {
         case source, author, title, description, url, urlToImage, publishedAt
