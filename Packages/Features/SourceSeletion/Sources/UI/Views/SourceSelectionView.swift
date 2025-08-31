@@ -19,11 +19,7 @@ struct SourceSelectionView: View {
     var body: some View {
         NavigationView {
             List(viewModel.sources) { source in
-                SourceRowView(
-                    source: source,
-                    isSelected: viewModel.selectedSourceIds.contains(source.id),
-                    onToggle: { viewModel.toggleSource(source) }
-                )
+                SourceRowView(source: source)
             }
             .padding(.top, Metrics.medium)
             .navigationTitle("list_title".localized())

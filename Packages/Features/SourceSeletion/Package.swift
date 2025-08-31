@@ -18,7 +18,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../Network/RestClient")
+        .package(path: "../../Network/RestClient"),
+        .package(path: "../../Storage")
 
     ],
     targets: [
@@ -27,7 +28,8 @@ let package = Package(
         .target(
             name: "SourceSelection",
             dependencies: [
-                .product(name: "RestClient", package: "RestClient")
+                .product(name: "RestClient", package: "RestClient"),
+                .product(name: "Storage", package: "Storage")
             ],
             resources: [
                 .process("Resources")

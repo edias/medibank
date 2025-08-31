@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Storage
 
 struct SourceRowView: View {
 
     let source: Source
-    let isSelected: Bool
-    let onToggle: () -> Void
+
+    @EnvironmentObject
+    private var storage: ObservableSelectionStorage
 
     var body: some View {
         HStack {
@@ -35,16 +37,16 @@ struct SourceRowView: View {
 
             Spacer()
 
-            Button(action: onToggle) {
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .blue : .gray)
+            Button(action: { storage.toggleSelection(for: source) }) {
+                Image(systemName: storage.isSelected(source) ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(storage.isSelected(source) ? .blue : .gray)
                     .font(.title2)
             }
         }
         .padding(.vertical, Metrics.small)
         .contentShape(Rectangle())
         .onTapGesture {
-            onToggle()
+            storage.toggleSelection(for: source)
         }
     }
 }

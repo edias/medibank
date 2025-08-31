@@ -6,6 +6,7 @@
 //
 
 import RestClient
+import Storage
 
 protocol SourcesNetworkServices: Sendable {
     func fetchSources() async throws -> [Source]
@@ -28,4 +29,9 @@ actor DefaultSourcesNetworkServices: SourcesNetworkServices {
 
         return try await restClient.executeRequest(endpoint.makeRequest()).sources
     }
+}
+
+struct SourcesResponse: Codable {
+    let status: String
+    let sources: [Source]
 }

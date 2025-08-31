@@ -8,8 +8,11 @@
 import RestClient
 import SwiftUI
 
+import Storage
+
 public protocol SourceSelectionDependencies {
     var restClient: RestClient { get }
+    var selectionStorage: SelectionStorage { get }
 }
 
 public protocol FeatureFactory {
@@ -28,7 +31,8 @@ public struct SourceSelectionFactory: @preconcurrency FeatureFactory {
     @MainActor
     public func makeRootView() -> some View {
         let networkServices = DefaultSourcesNetworkServices(restClient: dependencies.restClient)
+        let observableStotage = ObservableSelectionStorage(storage: dependencies.selectionStorage)
         let viewModel = SourceSelectionViewModel(networkServices: networkServices)
-        return SourceSelectionView(viewModel)
+        return SourceSelectionView(viewModel).environmentObject(observableStotage)
     }
 }

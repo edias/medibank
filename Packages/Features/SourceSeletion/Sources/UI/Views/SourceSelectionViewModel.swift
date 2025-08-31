@@ -6,16 +6,14 @@
 //
 
 import Foundation
+import Storage
 
 final class SourceSelectionViewModel: ObservableObject {
 
     @Published
     var sources: [Source] = []
 
-    @Published
-    private(set) var selectedSourceIds: Set<String> = []
-
-    let networkServices: SourcesNetworkServices
+    private let networkServices: SourcesNetworkServices
 
     init(networkServices: SourcesNetworkServices) {
         self.networkServices = networkServices
@@ -27,14 +25,6 @@ final class SourceSelectionViewModel: ObservableObject {
             sources = try await networkServices.fetchSources()
         } catch {
             // TODO: Handle error scenario
-        }
-    }
-
-    func toggleSource(_ source: Source) {
-        if selectedSourceIds.contains(source.id) {
-            selectedSourceIds.remove(source.id)
-        } else {
-            selectedSourceIds.insert(source.id)
         }
     }
 }
