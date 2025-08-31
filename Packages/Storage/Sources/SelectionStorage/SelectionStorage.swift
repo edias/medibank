@@ -10,10 +10,10 @@ public protocol SelectionStorage: AnyObject {
     var selectionsPublisher: AnyPublisher<[String], Never> { get }
 
     /// Toggles selection for a source
-    func toggleSelection(for source: Source)
+    func toggleSelection(for sourceId: String)
 
     /// Checks if source is selected
-    func isSelected(_ source: Source) -> Bool
+    func isSelected(_ sourceId: String) -> Bool
 }
 
 /// Persists selections in UserDefaults and publishes changes.
@@ -42,18 +42,18 @@ public final class DefaultSelectionStorage: SelectionStorage {
     }
 
     /// Toggles selection and saves to UserDefaults
-    public func toggleSelection(for source: Source) {
-        if selections.contains(source.id) {
-            selections.removeAll { $0 == source.id }
+    public func toggleSelection(for sourceId: String) {
+        if selections.contains(sourceId) {
+            selections.removeAll { $0 == sourceId }
         } else {
-            selections.append(source.id)
+            selections.append(sourceId)
         }
         updateStorage()
     }
 
     /// Checks if source is selected
-    public func isSelected(_ source: Source) -> Bool {
-        selections.contains(source.id)
+    public func isSelected(_ sourceId: String) -> Bool {
+        selections.contains(sourceId)
     }
 
     private func updateStorage() {
@@ -61,3 +61,4 @@ public final class DefaultSelectionStorage: SelectionStorage {
         defaults.synchronize()
     }
 }
+

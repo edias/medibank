@@ -58,8 +58,8 @@ struct SelectionStorageTests {
         let storage = DefaultSelectionStorage(defaults: mockDefaults)
         let source = createMockSource(id: "new-source")
         
-        storage.toggleSelection(for: source)
-        
+        storage.toggleSelection(for: source.id)
+
         #expect(storage.selections.contains("new-source"))
         #expect(mockDefaults.setForKeyCalled == true)
         #expect(mockDefaults.lastSetValue as? [String] == ["new-source"])
@@ -75,8 +75,8 @@ struct SelectionStorageTests {
         let storage = DefaultSelectionStorage(defaults: mockDefaults)
         let source = createMockSource(id: "existing-source")
         
-        storage.toggleSelection(for: source)
-        
+        storage.toggleSelection(for: source.id)
+
         #expect(!storage.selections.contains("existing-source"))
         #expect(storage.selections.contains("other-source"))
         #expect(mockDefaults.setForKeyCalled == true)
@@ -92,7 +92,7 @@ struct SelectionStorageTests {
         let storage = DefaultSelectionStorage(defaults: mockDefaults)
         let source = createMockSource(id: "selected-source")
         
-        #expect(storage.isSelected(source) == true)
+        #expect(storage.isSelected(source.id) == true)
     }
     
     @Test("isSelected returns false for unselected source")
@@ -104,7 +104,7 @@ struct SelectionStorageTests {
         let storage = DefaultSelectionStorage(defaults: mockDefaults)
         let source = createMockSource(id: "unselected-source")
         
-        #expect(storage.isSelected(source) == false)
+        #expect(storage.isSelected(source.id) == false)
     }
     
     @Test("selectionsPublisher emits updated selections when toggled")
@@ -120,8 +120,8 @@ struct SelectionStorageTests {
                 receivedSelections.append(selections)
             }
         
-        storage.toggleSelection(for: source)
-        
+        storage.toggleSelection(for: source.id)
+
         try await Task.sleep(nanoseconds: 100_000_000) // 100ms
         
         #expect(receivedSelections.count >= 2)
@@ -139,18 +139,18 @@ struct SelectionStorageTests {
         let source = createMockSource(id: "toggle-source")
         
         // First toggle - add
-        storage.toggleSelection(for: source)
-        #expect(storage.isSelected(source) == true)
+        storage.toggleSelection(for: source.id)
+        #expect(storage.isSelected(source.id) == true)
         #expect(storage.selections.contains("toggle-source"))
         
         // Second toggle - remove
-        storage.toggleSelection(for: source)
-        #expect(storage.isSelected(source) == false)
+        storage.toggleSelection(for: source.id)
+        #expect(storage.isSelected(source.id) == false)
         #expect(!storage.selections.contains("toggle-source"))
         
         // Third toggle - add again
-        storage.toggleSelection(for: source)
-        #expect(storage.isSelected(source) == true)
+        storage.toggleSelection(for: source.id)
+        #expect(storage.isSelected(source.id) == true)
         #expect(storage.selections.contains("toggle-source"))
     }
     
@@ -162,13 +162,13 @@ struct SelectionStorageTests {
         let source1 = createMockSource(id: "source1")
         let source2 = createMockSource(id: "source2")
         
-        storage.toggleSelection(for: source1)
+        storage.toggleSelection(for: source1.id)
         #expect(mockDefaults.setCallCount == 1)
         
-        storage.toggleSelection(for: source2)
+        storage.toggleSelection(for: source2.id)
         #expect(mockDefaults.setCallCount == 2)
         
-        storage.toggleSelection(for: source1)
+        storage.toggleSelection(for: source1.id)
         #expect(mockDefaults.setCallCount == 3)
         #expect(mockDefaults.lastSetValue as? [String] == ["source2"])
     }
@@ -191,7 +191,7 @@ struct SelectionStorageTests {
         #expect(receivedSelections == ["initial-source"])
         
         let source = createMockSource(id: "new-source")
-        storage.toggleSelection(for: source)
+        storage.toggleSelection(for: source.id)
         
         try await Task.sleep(nanoseconds: 50_000_000) // 50ms
         
