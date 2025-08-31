@@ -18,8 +18,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../Network/RestClient"),
-        .package(path: "../../Storage")
+        .package(path: "../../Core/Network/RestClient"),
+        .package(path: "../../Core/Storage")
 
     ],
     targets: [
