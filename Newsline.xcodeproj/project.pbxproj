@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F869CFDC2E64E20300C6D113 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F869CFDB2E64E20300C6D113 /* CommonWeb */; };
-		F869CFDE2E64E20300C6D113 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = F869CFDD2E64E20300C6D113 /* Storage */; };
-		F869CFE02E64E20300C6D113 /* Headlines in Frameworks */ = {isa = PBXBuildFile; productRef = F869CFDF2E64E20300C6D113 /* Headlines */; };
-		F869CFE22E64E20300C6D113 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F869CFE12E64E20300C6D113 /* SourceSelection */; };
 		F89FCA8B2E63062B00BB82A7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F89FCA8A2E63062B00BB82A7 /* Debug.xcconfig */; };
+		F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */; };
+		F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */ = {isa = PBXBuildFile; productRef = F8B345902E64FAF500E7B2D9 /* Headlines */; };
+		F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F8B345922E64FAFA00E7B2D9 /* SourceSelection */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,10 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F869CFE02E64E20300C6D113 /* Headlines in Frameworks */,
-				F869CFDE2E64E20300C6D113 /* Storage in Frameworks */,
-				F869CFE22E64E20300C6D113 /* SourceSelection in Frameworks */,
-				F869CFDC2E64E20300C6D113 /* CommonWeb in Frameworks */,
+				F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */,
+				F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */,
+				F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,10 +145,9 @@
 			);
 			name = Newsline;
 			packageProductDependencies = (
-				F869CFDB2E64E20300C6D113 /* CommonWeb */,
-				F869CFDD2E64E20300C6D113 /* Storage */,
-				F869CFDF2E64E20300C6D113 /* Headlines */,
-				F869CFE12E64E20300C6D113 /* SourceSelection */,
+				F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */,
+				F8B345902E64FAF500E7B2D9 /* Headlines */,
+				F8B345922E64FAFA00E7B2D9 /* SourceSelection */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -235,10 +232,11 @@
 			mainGroup = F8D3B6832E626C4F00C59C08;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F869CFD62E64E1C000C6D113 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */,
-				F869CFD72E64E1C700C6D113 /* XCLocalSwiftPackageReference "Packages/Storage" */,
-				F869CFD82E64E1D100C6D113 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */,
-				F869CFD92E64E1E500C6D113 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
+				F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */,
+				F8B345882E64FAC100E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */,
+				F8B345892E64FACC00E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
+				F8B345B92E64FCF400E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Network/RestClient" */,
+				F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -603,43 +601,42 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		F869CFD62E64E1C000C6D113 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */ = {
+		F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/CommonWeb;
 		};
-		F869CFD72E64E1C700C6D113 /* XCLocalSwiftPackageReference "Packages/Storage" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Storage;
-		};
-		F869CFD82E64E1D100C6D113 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */ = {
+		F8B345882E64FAC100E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/Headlines;
 		};
-		F869CFD92E64E1E500C6D113 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */ = {
+		F8B345892E64FACC00E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/SourceSelection;
+		};
+		F8B345B92E64FCF400E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Network/RestClient" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Core/Network/RestClient;
+		};
+		F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Core/Storage;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F869CFDB2E64E20300C6D113 /* CommonWeb */ = {
+		F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F869CFD62E64E1C000C6D113 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */;
+			package = F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */;
 			productName = CommonWeb;
 		};
-		F869CFDD2E64E20300C6D113 /* Storage */ = {
+		F8B345902E64FAF500E7B2D9 /* Headlines */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F869CFD72E64E1C700C6D113 /* XCLocalSwiftPackageReference "Packages/Storage" */;
-			productName = Storage;
-		};
-		F869CFDF2E64E20300C6D113 /* Headlines */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F869CFD82E64E1D100C6D113 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */;
+			package = F8B345882E64FAC100E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */;
 			productName = Headlines;
 		};
-		F869CFE12E64E20300C6D113 /* SourceSelection */ = {
+		F8B345922E64FAFA00E7B2D9 /* SourceSelection */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F869CFD92E64E1E500C6D113 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */;
+			package = F8B345892E64FACC00E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */;
 			productName = SourceSelection;
 		};
 /* End XCSwiftPackageProductDependency section */
