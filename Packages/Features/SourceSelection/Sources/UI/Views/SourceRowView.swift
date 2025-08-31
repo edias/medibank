@@ -37,16 +37,16 @@ struct SourceRowView: View {
 
             Spacer()
 
-            Button(action: { storage.toggleSelection(for: source) }) {
-                Image(systemName: storage.isSelected(source) ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(storage.isSelected(source) ? .blue : .gray)
+            Button(action: { storage.toggleSelection(for: source.id) }) {
+                Image(systemName: storage.isSelected(source.id) ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(storage.isSelected(source.id) ? .blue : .gray)
                     .font(.title2)
             }
         }
         .padding(.vertical, Metrics.small)
         .contentShape(Rectangle())
         .onTapGesture {
-            storage.toggleSelection(for: source)
+            storage.toggleSelection(for: source.id)
         }
     }
 }
