@@ -6,6 +6,8 @@
 //
 
 import Combine
+import Foundation
+
 import Storage
 
 final class HeadlinesViewModel: ObservableObject {
@@ -17,9 +19,12 @@ final class HeadlinesViewModel: ObservableObject {
 
     private let storage: SelectionStorage
 
-    init(networkServices: HeadlinesNetworkServices, storage: SelectionStorage) {
+    private let onTapHeadline: @MainActor (URL) -> Void
+
+    init(networkServices: HeadlinesNetworkServices, storage: SelectionStorage, onTapHeadline: @escaping @MainActor (URL) -> Void) {
         self.networkServices = networkServices
         self.storage = storage
+        self.onTapHeadline = onTapHeadline
     }
 
     @MainActor
@@ -30,5 +35,11 @@ final class HeadlinesViewModel: ObservableObject {
         } catch {
             // TODO: Implement failure scenarioa
         }
+    }
+
+    @MainActor
+    func onTapHeadline(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        onTapHeadline(url)
     }
 }

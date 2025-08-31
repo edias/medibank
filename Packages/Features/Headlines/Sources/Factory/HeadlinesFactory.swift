@@ -13,6 +13,7 @@ import Storage
 public protocol HeadlinesDependencies {
     var restClient: RestClient { get }
     var selectionStorage: SelectionStorage { get }
+    var onTapHeadline: @MainActor (URL) -> Void { get }
 }
 
 public protocol FeatureFactory {
@@ -30,8 +31,15 @@ public struct HeadlinesFactory: @preconcurrency FeatureFactory {
 
     @MainActor
     public func makeRootView() -> some View {
+
         let networkServices = DefaultHeadlinesNetworkServices(restClient: dependencies.restClient)
-        let viewModel = HeadlinesViewModel(networkServices: networkServices, storage: dependencies.selectionStorage)
+
+        let viewModel = HeadlinesViewModel(
+            networkServices: networkServices,
+            storage: dependencies.selectionStorage,
+            onTapHeadline: dependencies.onTapHeadline
+        )
+
         return HeadlinesView(viewModel)
     }
 }

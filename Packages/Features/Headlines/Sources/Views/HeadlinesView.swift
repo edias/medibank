@@ -20,7 +20,7 @@ struct HeadlinesView: View {
         NavigationView {
             VStack {
                 List(viewModel.headlines, id: \.id) { article in
-                    HeadlinesRowView(article: article)
+                    HeadlinesRowView(article: article, onTapHeadline: viewModel.onTapHeadline)
                 }
             }
             .navigationTitle("Headlines")

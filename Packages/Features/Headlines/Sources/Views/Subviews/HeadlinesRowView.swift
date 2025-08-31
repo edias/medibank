@@ -10,6 +10,8 @@ import SwiftUI
 struct HeadlinesRowView: View {
 
     let article: Article
+    
+    let onTapHeadline: (String) -> Void
 
     var body: some View {
 
@@ -48,5 +50,8 @@ struct HeadlinesRowView: View {
             Spacer()
         }
         .padding(.horizontal)
+        .onTapGesture {
+            onTapHeadline(article.url)
+        }
     }
 }
