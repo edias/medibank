@@ -12,7 +12,13 @@ import SourceSelection
 
 struct NewslineTabView: View {
 
-    let dependencies: FeatureDependencies
+    @State private var url: URL?
+
+    private var dependencies: FeatureDependencies {
+        FeatureDependencies { selectedURL in
+            url = selectedURL
+        }
+    }
 
     var body: some View {
         
@@ -29,10 +35,17 @@ struct NewslineTabView: View {
                     Image(systemName: "newspaper")
                     Text("Sources")
                 }
+
+        }.sheet(item: $url) { url in
+            WebPageView(url: url)
         }
     }
 }
 
 #Preview {
-    NewslineTabView(dependencies: FeatureDependencies())
+    NewslineTabView()
+}
+
+extension URL: @retroactive Identifiable {
+    public var id: String { absoluteString }
 }

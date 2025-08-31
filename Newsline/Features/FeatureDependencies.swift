@@ -11,15 +11,18 @@ import SourceSelection
 import RestClient
 import Storage
 
+import Foundation
+
 final class FeatureDependencies {
 
     private let restClient: RestClient
-
     private let selectionStorage: SelectionStorage
+    private let onTapHeadline: @MainActor (URL) -> Void
 
     lazy var headlines: HeadlinesDependencies = DefaultHeadlinesDependencies(
         restClient: restClient,
-        selectionStorage: selectionStorage
+        selectionStorage: selectionStorage,
+        onTapHeadline: onTapHeadline
     )
 
     lazy var sourceSelection: SourceSelectionDependencies = DefaultSourceSelectionDependencies(
@@ -27,8 +30,13 @@ final class FeatureDependencies {
         selectionStorage: selectionStorage
     )
 
-    init(restClient: RestClient = AppContext.shared.restClient, selectionStorage: SelectionStorage = AppContext.shared.storage) {
+    init(
+        restClient: RestClient = AppContext.shared.restClient,
+        selectionStorage: SelectionStorage = AppContext.shared.storage,
+        onTapHeadline: @escaping @MainActor (URL) -> Void
+    ) {
         self.restClient = restClient
         self.selectionStorage = selectionStorage
+        self.onTapHeadline = onTapHeadline
     }
 }

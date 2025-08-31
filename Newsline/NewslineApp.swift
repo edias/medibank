@@ -11,11 +11,9 @@ import SwiftData
 @main
 struct NewslineApp: App {
 
-    private let dependencies = FeatureDependencies()
-
     var body: some Scene {
         WindowGroup {
-            NewslineTabView(dependencies: dependencies)
+            NewslineTabView()
         }
     }
 }
