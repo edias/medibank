@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+import Headlines
 import SourceSelection
 
 struct NewslineTabView: View {
@@ -16,10 +18,16 @@ struct NewslineTabView: View {
         
         TabView {
 
-            SourceSelectionFactory(dependencies.sourceSelection).makeRootView()
+            HeadlinesFactory(dependencies.headlines).makeRootView()
                 .tabItem {
                     Image(systemName: "newspaper")
                     Text("Headlines")
+                }
+
+            SourceSelectionFactory(dependencies.sourceSelection).makeRootView()
+                .tabItem {
+                    Image(systemName: "newspaper")
+                    Text("Sources")
                 }
         }
     }

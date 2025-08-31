@@ -5,9 +5,10 @@
 //  Created by Eduardo Dias on 30/08/2025.
 //
 
-import RestClient
+import Headlines
 import SourceSelection
 
+import RestClient
 import Storage
 
 final class FeatureDependencies {
@@ -15,6 +16,11 @@ final class FeatureDependencies {
     private let restClient: RestClient
 
     private let selectionStorage: SelectionStorage
+
+    lazy var headlines: HeadlinesDependencies = DefaultHeadlinesDependencies(
+        restClient: restClient,
+        selectionStorage: selectionStorage
+    )
 
     lazy var sourceSelection: SourceSelectionDependencies = DefaultSourceSelectionDependencies(
         restClient: restClient,
