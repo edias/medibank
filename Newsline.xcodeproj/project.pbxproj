@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F830B3DC2E645A6800F8CE28 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F830B3DB2E645A6800F8CE28 /* SourceSelection */; };
-		F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */ = {isa = PBXBuildFile; productRef = F866B9A62E62A5CA00841BE0 /* RestClient */; };
 		F869CBF82E6474B300C6D113 /* Headlines in Frameworks */ = {isa = PBXBuildFile; productRef = F869CBF72E6474B300C6D113 /* Headlines */; };
 		F89FCA8B2E63062B00BB82A7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F89FCA8A2E63062B00BB82A7 /* Debug.xcconfig */; };
 /* End PBXBuildFile section */
@@ -75,7 +74,6 @@
 			files = (
 				F869CBF82E6474B300C6D113 /* Headlines in Frameworks */,
 				F830B3DC2E645A6800F8CE28 /* SourceSelection in Frameworks */,
-				F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +143,6 @@
 			);
 			name = Newsline;
 			packageProductDependencies = (
-				F866B9A62E62A5CA00841BE0 /* RestClient */,
 				F830B3DB2E645A6800F8CE28 /* SourceSelection */,
 				F869CBF72E6474B300C6D113 /* Headlines */,
 			);
@@ -232,7 +229,6 @@
 			mainGroup = F8D3B6832E626C4F00C59C08;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */,
 				F830B3B92E6459BD00F8CE28 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
 				F869CBF62E6474A600C6D113 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */,
 			);
@@ -607,10 +603,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/Headlines;
 		};
-		F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Network/RestClient;
-		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -618,11 +610,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F830B3B92E6459BD00F8CE28 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */;
 			productName = SourceSelection;
-		};
-		F866B9A62E62A5CA00841BE0 /* RestClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */;
-			productName = RestClient;
 		};
 		F869CBF72E6474B300C6D113 /* Headlines */ = {
 			isa = XCSwiftPackageProductDependency;
