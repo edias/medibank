@@ -8,6 +8,9 @@
 import RestClient
 import SourceSelection
 
+import Storage
+
 struct DefaultSourceSelectionDependencies: SourceSelectionDependencies {
     let restClient: RestClient
+    let selectionStorage: SelectionStorage
 }
