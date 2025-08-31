@@ -48,11 +48,16 @@ public final class DefaultSelectionStorage: SelectionStorage {
         } else {
             selections.append(source.id)
         }
-        defaults.set(selections, forKey: key)
+        updateStorage()
     }
 
     /// Checks if source is selected
     public func isSelected(_ source: Source) -> Bool {
         selections.contains(source.id)
+    }
+
+    private func updateStorage() {
+        defaults.set(selections, forKey: key)
+        defaults.synchronize()
     }
 }
