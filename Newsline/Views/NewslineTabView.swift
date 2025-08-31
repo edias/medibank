@@ -32,7 +32,7 @@ struct NewslineTabView: View {
 
             SourceSelectionFactory(dependencies.sourceSelection).makeRootView()
                 .tabItem {
-                    Image(systemName: "newspaper")
+                    Image(systemName: "globe")
                     Text("Sources")
                 }
 
