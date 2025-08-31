@@ -16,8 +16,8 @@ let package = Package(
             targets: ["Headlines"]),
     ],
     dependencies: [
-        .package(path: "../../Network/RestClient"),
-        .package(path: "../../Storage")
+        .package(path: "../../Core/Network/RestClient"),
+        .package(path: "../../Core/Storage")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
