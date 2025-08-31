@@ -56,6 +56,7 @@ public class EndpointBuilder<RequestData: Encodable & Sendable, ResponseData: De
 
     /// Adds a query parameter with single value
     public func withQuery(_ key: String, value: String) -> Self {
+        guard !value.isEmpty else { return self }
         let query = [key: [value]]
         queries.append(query)
         return self
@@ -63,6 +64,7 @@ public class EndpointBuilder<RequestData: Encodable & Sendable, ResponseData: De
 
     /// Adds a query parameter with multiple values
     public func withQuery(_ key: String, values: [String]) -> Self {
+        guard !values.isEmpty else { return self }
         let query = [key: values]
         queries.append(query)
         return self
