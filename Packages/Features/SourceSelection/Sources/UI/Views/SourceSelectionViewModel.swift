@@ -10,6 +10,8 @@ import Storage
 
 final class SourceSelectionViewModel: ObservableObject {
 
+    let title = "list_title".localized()
+
     @Published
     var sources: [Source] = []
 

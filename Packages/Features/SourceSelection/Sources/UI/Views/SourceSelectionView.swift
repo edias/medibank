@@ -22,7 +22,7 @@ struct SourceSelectionView: View {
                 SourceRowView(source: source)
             }
             .padding(.top, Metrics.medium)
-            .navigationTitle("list_title".localized())
+            .navigationTitle(viewModel.title)
             .task {
                 await viewModel.loadSources()
             }
