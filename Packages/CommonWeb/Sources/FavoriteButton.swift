@@ -1,17 +1,19 @@
 //
-//  File.swift
-//  Newsline
+//  FavoriteButton.swift
+//  CommonWeb
 //
 //  Created by Eduardo Dias on 01/09/2025.
 //
 
 import SwiftUI
+import Storage
 
 struct FavoriteButton: View {
 
-    let url: URL
+    @EnvironmentObject
+    private var storage: ObservableArticlesStorage
 
-    @State private var isFavorite = false
+    let article: Article
 
     var body: some View {
         ZStack {
@@ -23,12 +25,12 @@ struct FavoriteButton: View {
                 .fill(Color.blue)
                 .frame(width: 40, height: 40)
 
-            Image(systemName: isFavorite ? "star.fill" : "star")
+            Image(systemName: storage.isArticleSaved(article.url) ? "star.fill" : "star")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.white)
         }
         .onTapGesture {
-            isFavorite.toggle()
+            storage.toggleArticle(for: article)
         }
     }
 }

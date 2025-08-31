@@ -7,17 +7,18 @@
 
 import Foundation
 import SwiftUI
-import WebKit
+
+import Storage
 
 struct WebPageView: View {
 
-    let url: URL
+    let article: Article
 
     var body: some View {
 
         ZStack {
 
-            WebView(url: url)
+            WebView(url: URL(string: article.url)!)
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
@@ -26,10 +27,13 @@ struct WebPageView: View {
 
                 HStack {
                     Spacer()
-                    FavoriteButton(url: url)
+                    FavoriteButton(article: article)
                         .padding(.trailing, 15)
                 }
             }
         }
     }
 }
+
+
+

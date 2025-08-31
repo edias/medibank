@@ -1,6 +1,6 @@
 //
 //  WebView.swift
-//  Newsline
+//  CommonWeb
 //
 //  Created by Eduardo Dias on 01/09/2025.
 //
