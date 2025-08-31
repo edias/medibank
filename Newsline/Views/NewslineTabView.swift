@@ -7,16 +7,19 @@
 
 import SwiftUI
 
+import CommonWeb
 import Headlines
 import SourceSelection
 
+import Storage
+
 struct NewslineTabView: View {
 
-    @State private var url: URL?
+    @State private var article: Article?
 
     private var dependencies: FeatureDependencies {
-        FeatureDependencies { selectedURL in
-            url = selectedURL
+        FeatureDependencies { selectedArticle in
+            article = selectedArticle
         }
     }
 
@@ -36,8 +39,8 @@ struct NewslineTabView: View {
                     Text("Sources")
                 }
 
-        }.sheet(item: $url) { url in
-            WebPageView(url: url)
+        }.sheet(item: $article) { article in
+            CommonWebFactory(dependencies.commonWeb).makeRootView(article: article)
         }
     }
 }

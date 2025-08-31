@@ -5,6 +5,7 @@
 //  Created by Eduardo Dias on 30/08/2025.
 //
 
+import CommonWeb
 import Headlines
 import SourceSelection
 
@@ -16,8 +17,15 @@ import Foundation
 final class FeatureDependencies {
 
     private let restClient: RestClient
+
     private let selectionStorage: SelectionStorage
-    private let onTapHeadline: @MainActor (URL) -> Void
+    private let articlesStorage: ArticlesStorage
+    
+    private let onTapHeadline: @MainActor (Article) -> Void
+
+    lazy var commonWeb: CommonWebDependencies = DefaultCommonWebDependencies(
+        articlesStorage: articlesStorage
+    )
 
     lazy var headlines: HeadlinesDependencies = DefaultHeadlinesDependencies(
         restClient: restClient,
@@ -32,11 +40,13 @@ final class FeatureDependencies {
 
     init(
         restClient: RestClient = AppContext.shared.restClient,
-        selectionStorage: SelectionStorage = AppContext.shared.storage,
-        onTapHeadline: @escaping @MainActor (URL) -> Void
+        selectionStorage: SelectionStorage = AppContext.shared.selectionStorage,
+        articlesStorage: ArticlesStorage = AppContext.shared.articlesStorage,
+        onTapHeadline: @escaping @MainActor (Article) -> Void
     ) {
         self.restClient = restClient
         self.selectionStorage = selectionStorage
+        self.articlesStorage = articlesStorage
         self.onTapHeadline = onTapHeadline
     }
 }

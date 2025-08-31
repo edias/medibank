@@ -14,11 +14,14 @@ final class AppContext {
 
     let restClient: RestClient
 
-    let storage: SelectionStorage
+    let selectionStorage: SelectionStorage
+
+    let articlesStorage: ArticlesStorage
 
     private init(environment: Environment = AppEnvironment.shared.environment) {
         restClient = Self.makeRestClient(environment)
-        storage = DefaultSelectionStorage()
+        selectionStorage = DefaultSelectionStorage()
+        articlesStorage = DefaultArticlesStorage()
     }
 
     private static func makeRestClient(_ environment: Environment) -> RestClient {

@@ -15,5 +15,5 @@ import Foundation
 struct DefaultHeadlinesDependencies: HeadlinesDependencies {
     let restClient: RestClient
     let selectionStorage: SelectionStorage
-    let onTapHeadline: @MainActor (URL) -> Void
+    let onTapHeadline: @Sendable @MainActor (Article) -> Void
 }
