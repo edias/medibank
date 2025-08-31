@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F830B3DC2E645A6800F8CE28 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F830B3DB2E645A6800F8CE28 /* SourceSelection */; };
 		F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */ = {isa = PBXBuildFile; productRef = F866B9A62E62A5CA00841BE0 /* RestClient */; };
-		F866B9A92E62A5CA00841BE0 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F866B9A82E62A5CA00841BE0 /* SourceSelection */; };
 		F89FCA8B2E63062B00BB82A7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F89FCA8A2E63062B00BB82A7 /* Debug.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F866B9A92E62A5CA00841BE0 /* SourceSelection in Frameworks */,
+				F830B3DC2E645A6800F8CE28 /* SourceSelection in Frameworks */,
 				F866B9A72E62A5CA00841BE0 /* RestClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,7 +144,7 @@
 			name = Newsline;
 			packageProductDependencies = (
 				F866B9A62E62A5CA00841BE0 /* RestClient */,
-				F866B9A82E62A5CA00841BE0 /* SourceSelection */,
+				F830B3DB2E645A6800F8CE28 /* SourceSelection */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -230,7 +230,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */,
-				F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */,
+				F830B3B92E6459BD00F8CE28 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -595,9 +595,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */ = {
+		F830B3B92E6459BD00F8CE28 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Features/SourceSeletion;
+			relativePath = Packages/Features/SourceSelection;
 		};
 		F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */ = {
 			isa = XCLocalSwiftPackageReference;
@@ -606,15 +606,15 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F830B3DB2E645A6800F8CE28 /* SourceSelection */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F830B3B92E6459BD00F8CE28 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */;
+			productName = SourceSelection;
+		};
 		F866B9A62E62A5CA00841BE0 /* RestClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F8C817652E62760D00A85BEA /* XCLocalSwiftPackageReference "Packages/Network/RestClient" */;
 			productName = RestClient;
-		};
-		F866B9A82E62A5CA00841BE0 /* SourceSelection */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F866B99E2E62A3C400841BE0 /* XCLocalSwiftPackageReference "Packages/Features/SourceSeletion" */;
-			productName = SourceSelection;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
