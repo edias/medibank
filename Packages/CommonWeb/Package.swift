@@ -16,7 +16,7 @@ let package = Package(
             targets: ["CommonWeb"]),
     ],
     dependencies: [
-        .package(path: "../Storage")
+        .package(path: "../Core/Storage")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
