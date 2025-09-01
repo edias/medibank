@@ -56,7 +56,3 @@ struct NewslineTabView: View {
 #Preview {
     NewslineTabView()
 }
-
-extension URL: @retroactive Identifiable {
-    public var id: String { absoluteString }
-}
