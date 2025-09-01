@@ -42,7 +42,7 @@ struct NewslineTabView: View {
 
             FavoritesFactory(dependencies.favorites).makeRootView()
                 .tabItem {
-                    Image(systemName: "globe")
+                    Image(systemName: "heart")
                     Text("Favorites")
                 }
 
