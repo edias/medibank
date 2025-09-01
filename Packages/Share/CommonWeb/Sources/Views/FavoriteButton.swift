@@ -8,6 +8,8 @@
 import SwiftUI
 import Storage
 
+import CommonUI
+
 struct FavoriteButton: View {
 
     @EnvironmentObject
@@ -16,17 +18,19 @@ struct FavoriteButton: View {
     let article: Article
 
     var body: some View {
+
         ZStack {
+            
             Circle()
-                .fill(Color.white)
-                .frame(width: 50, height: 50)
+                .fill(DesignSystem.colors.onBrand)
+                .frame(width: DesignSystem.metrics.buttonSize, height: DesignSystem.metrics.buttonSize)
 
             Circle()
-                .fill(Color.blue)
-                .frame(width: 40, height: 40)
+                .fill(DesignSystem.colors.error)
+                .frame(width: DesignSystem.metrics.iconSize, height: DesignSystem.metrics.iconSize)
 
-            Image(systemName: storage.isArticleSaved(article.url) ? "star.fill" : "star")
-                            .font(.system(size: 18, weight: .bold))
+            Image(systemName: storage.isArticleSaved(article.url) ? "heart.fill" : "heart")
+                .font(DesignSystem.typography.buttonText)
                             .foregroundColor(.white)
         }
         .onTapGesture {

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+import CommonUI
 import Storage
 
 struct WebPageView: View {
@@ -28,7 +29,7 @@ struct WebPageView: View {
                 HStack {
                     Spacer()
                     FavoriteButton(article: article)
-                        .padding(.trailing, 15)
+                        .padding(.trailing, DesignSystem.metrics.extraLarge)
                 }
             }
         }
