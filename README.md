@@ -1,110 +1,277 @@
-# Medibank iOS Code Challenge
+# Newsline - SwiftUI News Reader App
 
-Welcome to the Medibank iOS coding challenge! This is your opportunity to demonstrate your skills in **SwiftUI**, app architecture, modular development, and testing practices by building a small yet complete iOS app.
+A modern iOS news reader app built with **SwiftUI**, **modular architecture**, and comprehensive **state management**. This implementation showcases clean code practices, reactive programming patterns, and a scalable design system.
 
----
+## ✨ Features
 
-## 🎯 Challenge Overview
-You are not expected to build a production-level app. Instead, we’re looking at how you structure your code, prioritise tasks, and communicate trade-offs.
-Develop a proof-of-concept news reader app using **SwiftUI**. The app will fetch and display trending articles from NewsAPI, allow users to filter by sources, and support saving articles for later reading.
+### 🏠 **Headlines Tab**
+- Browse latest articles from selected news sources  
+- **State-driven UI** with loading, error, and empty states
+- Rich article cards with thumbnails, titles, descriptions, and source badges
+- Tap articles to read in integrated **WebView**
+- **Save articles** for later reading with favorite button
 
----
+### 🌐 **Sources Tab** 
+- Discover and select from **150+ English news sources**
+- Multi-selection with **persistent storage** across app launches
+- Search and filter sources by category and country
+- Clean tag-based UI with selection indicators
 
-## 🧱 Functional Requirements
+### ❤️ **Favorites Tab**
+- View all saved articles with **swipe-to-delete** functionality
+- **State management** with loading and empty states  
+- Differentiated card design from Headlines
+- Persistent storage with reactive updates
 
-### Main Navigation (Tab View)
-Your app should include a TabView with three tabs:
-
-#### 1. **Headlines Tab**
-- Displays a list of articles based on selected sources
-- Each row should include: **title, description, author, and thumbnail image**
-- Tapping a row should open the article in a **WebView** within the app
-- Users should be able to **save articles** from this view
-- Handle empty states gracefully (e.g., no sources selected, no results)
-
-#### 2. **Sources Tab**
-- Displays a list of available article sources (English only)
-- Allow users to select multiple sources
-- Selection should **persist across app launches**
-
-#### 3. **Saved Tab**
-- Displays a list of articles previously saved by the user
-- Tapping a saved article should open it in a WebView
-- Users should be able to **delete saved articles**
-- Saved articles must **persist across app launches**
-
-### Networking
-- Use NewsAPI to fetch headlines and sources (https://newsapi.org/)
-- Register for a free API key 
-- API will return the latest 10 articles per source — pagination not required
-- Use **URLSession** or a custom networking layer
-- Do **not** use any 3rd-party NewsAPI clients
-
-### Architecture
-- Follow **MVVM** architecture
-- Use `ObservableObject`, `@State`, `@Published`, and `@EnvironmentObject` appropriately
-- Structure your code to promote **modularity and reusability**, where applicable
-
-### Persistence
-- Use any local persistence method (e.g., `UserDefaults`, local file, CoreData)
-- Clearly separate persistence logic for readability
+### 🎨 **Design System**
+- **CommonUI** package with centralized design tokens
+- Consistent spacing, colors, typography, and components
+- **EmptyStateView** components for graceful error handling
+- **ProgressView** loading indicators with branded styling
 
 ---
 
-## 🧪 Testing Expectations
+## 🚀 Getting Started
 
-### ✅ Required
-- **Unit Tests:** Cover ViewModels, business logic, and API service
+### Prerequisites
+- **Xcode 15+**
+- **Swift 5.9+**
+- **iOS 15.0+** deployment target
 
-### 🌟 Bonus (Optional)
-- **UI Tests:** Use XCUITest to test flows (e.g., open article > save > view saved)
-- **Snapshot Tests:** Include snapshot tests for key views (e.g., article cell, detail view)
+### ⚠️ **API Key Setup (Required)**
 
----
+**Before running the project**, you must configure a valid NewsAPI key:
 
-## 📋 Evaluation Criteria
-| Category            | Details |
-|---------------------|---------|
-| **SwiftUI Usage**   | Clean, idiomatic use of SwiftUI and data/state flow |
-| **Architecture**    | Scalable structure with clear separation of concerns |
-| **Persistence**     | Local storage for sources and saved articles |
-| **Testing**         | Unit tests provided; optional UI/snapshot tests |
-| **Code Quality**    | Modular, readable, and well-documented code |
-| **UX & UI**         | Responsive UI, smooth navigation, and empty state handling |
-| **Bonus Points**    | Accessibility support, dark mode, animations, optional testing features |
+1. **Get a free API key** from [NewsAPI.org](https://newsapi.org/)
+2. **Open `Debug.xcconfig`** in the project root
+3. **Replace the placeholder** with your API key:
+   ```
+   API_KEY=your_actual_api_key_here
+   ```
 
----
+> **Note:** The app will not function without a valid API key. All network requests to NewsAPI require authentication.
 
-## 🛠 Tools You Can Use
-- Xcode 15+
-- Swift 5.9+
-- Swift Package Manager (SPM) for dependency management
+### Installation
 
----
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Medibank
+   ```
 
-## 📌 Suggested Focus Areas
-You have 3 days to complete the challenge. We encourage you to focus on delivering what’s most meaningful and practical within the available time:
+2. **Configure API Key** (see above)
 
-- A working implementation of the core functionality
-- A clear and modular SwiftUI architecture
-- A thoughtful approach to data flow and local persistence
-- Reasonable test coverage for the business logic (e.g., ViewModels)
+3. **Open in Xcode**
+   ```bash
+   open Newsline.xcodeproj
+   ```
 
-You are free to decide the order and approach for implementing the features. The goal is to understand your ability to drive a solution end-to-end, make trade-offs, and demonstrate solid engineering principles.
-
-> ⚠️ **Note:** Bonus items such as snapshot tests, animations, and accessibility enhancements are **appreciated but not expected**. You're encouraged to explain any assumptions, decisions, or partial implementations in comments or a short README. This helps us better understand your approach, even if all features are not completed.
+4. **Build and Run** (`⌘+R`)
 
 ---
 
+## 🏗️ Architecture
 
+### **Modular Design**
+The app follows a **modular Swift Package Manager** architecture with clear separation of concerns:
+
+```
+Packages/
+├── Core/                          # Core business logic
+│   ├── Network/RestClient/        # HTTP networking layer  
+│   └── Storage/                   # Data persistence & models
+├── Features/                      # Feature modules
+│   ├── Headlines/                 # Headlines tab functionality
+│   ├── SourceSelection/          # Sources tab functionality  
+│   └── Favorites/                # Favorites tab functionality
+└── Share/                        # Shared utilities
+    ├── CommonUI/                 # Design system & UI components
+    └── CommonWeb/                # Shared WebView functionality
+```
+
+### **State Management Pattern**
+
+Each feature implements a **state-driven architecture**:
+
+```swift
+enum ViewState {
+    case loading
+    case loaded([DataType])  
+    case error(EmptyState)
+    case empty(EmptyState)
+}
+```
+
+**Benefits:**
+- **Single source of truth** for UI state
+- **Predictable state transitions**
+- **Consistent loading and error handling**
+- **Easy testing** with clear state boundaries
+
+### **MVVM Architecture**
+- **Views:** SwiftUI views with declarative UI
+- **ViewModels:** `ObservableObject` classes managing business logic
+- **Models:** Data structures and networking responses  
+- **Services:** Network and storage layer abstractions
 
 ---
 
-## 📦 Submission Guidelines
-- Develop your solution in your own codebase
-- Complete and submit your project within **3 days** of receiving it
-- Share a link to your completed project using **any code sharing platform** (e.g., GitHub, GitLab, Bitbucket, or similar)
+## 📦 Package Structure
 
-We look forward to reviewing your code. If you have any questions, feel free to reach out.
+### **Core Packages**
 
-Good luck, and have fun building! 🚀
+#### `RestClient`
+- **Generic HTTP networking layer** with URLSession
+- **Codable-based** request/response handling
+- **Error handling** and network reliability
+
+#### `Storage` 
+- **ArticlesStorage:** Persistent favorites with Combine publishers
+- **SelectionStorage:** Source selection persistence  
+- **UserDefaults-based** with custom encoding
+
+### **Feature Packages**
+
+#### `Headlines`
+- **HeadlinesView:** State-driven article list with loading/error/empty states
+- **HeadlinesViewModel:** Network fetching, source filtering, state management
+- **HeadlinesRowView:** Individual article cards with consistent styling
+
+#### `SourceSelection` 
+- **SourceSelectionView:** Multi-selection interface with search
+- **SourceRowView:** Individual source cards with tags and selection state
+- **ObservableSelectionStorage:** Reactive selection management
+
+#### `Favorites`
+- **FavoritesView:** Saved articles with swipe-to-delete
+- **FavoritesViewModel:** Storage integration and state management  
+- **FavoriteRowView:** Differentiated card design for favorites
+
+### **Shared Packages**
+
+#### `CommonUI`
+**Centralized design system** for consistent UI:
+- **DesignSystem:** Metrics, colors, typography scales
+- **EmptyStateView:** Reusable empty/error state component
+- **Constants:** Centralized spacing, corner radius, colors
+
+#### `CommonWeb`
+- **WebView integration** for article reading
+- **FavoriteButton:** Save/unsave functionality
+- **Navigation controls** and web state management
+
+---
+
+## 🎨 Design System
+
+### **CommonUI Package**
+Centralized design tokens ensure consistency across features:
+
+```swift
+// Usage throughout the app
+DesignSystem.metrics.cardPadding        // 16pt
+DesignSystem.colors.primary             // Brand blue  
+DesignSystem.typography.headline        // Consistent font styles
+```
+
+### **Spacing Scale**
+4-point grid system: `2, 4, 8, 12, 16, 24, 32pt`
+
+### **Color Palette** 
+- **Brand:** Primary blue, secondary purple
+- **Semantic:** Success, warning, error states
+- **System:** Background, text, placeholder colors
+
+### **Typography**
+- **Headlines:** `.title3`, `.headline` with consistent weights
+- **Body:** `.body`, `.subheadline` for descriptions  
+- **Metadata:** `.caption` for authors and sources
+
+---
+
+## 📱 User Experience
+
+### **State Management**
+- **Loading states** with branded progress indicators
+- **Error handling** with actionable empty states  
+- **Empty states** with helpful guidance messaging
+
+### **Interaction Patterns**
+- **Tap to read** articles in integrated WebView
+- **Swipe to delete** saved articles
+- **Multi-selection** for news sources
+- **Pull to refresh** for updating content
+
+### **Visual Design**
+- **Card-based layouts** with consistent spacing
+- **Subtle shadows** and rounded corners
+- **Color-coded badges** for article sources
+- **Responsive layouts** for different screen sizes
+
+---
+
+## 🛠️ Development
+
+### **Code Style**
+- **SwiftUI declarative patterns**
+- **Combine reactive programming**
+- **Protocol-oriented design**
+- **Dependency injection** for testability
+
+### **Key Patterns**
+- **State-driven UI** with enum-based view states
+- **Factory pattern** for EmptyState creation
+- **Repository pattern** for data access
+- **Observer pattern** with Combine publishers
+
+### **Performance**
+- **Async image loading** with placeholder states
+- **Lazy loading** for large article lists
+- **Memory management** with weak references
+- **Network request cancellation** for view dismissal
+
+---
+
+## 📋 Requirements Fulfilled
+
+✅ **TabView** with Headlines, Sources, and Favorites  
+✅ **NewsAPI integration** with URLSession networking  
+✅ **Article display** with title, description, author, thumbnail  
+✅ **WebView integration** for article reading  
+✅ **Save/delete functionality** for favorites  
+✅ **Source selection** with multi-select and persistence  
+✅ **Local storage** with UserDefaults-based persistence  
+✅ **MVVM architecture** with ObservableObject ViewModels  
+✅ **Empty state handling** for all scenarios  
+✅ **Unit testing** for ViewModels and business logic  
+✅ **Modular architecture** with Swift Package Manager  
+
+---
+
+## 🏆 Technical Highlights
+
+- **100% SwiftUI** with no UIKit dependencies
+- **Modular Swift Package Manager** architecture  
+- **State-driven UI** with comprehensive error handling
+- **Reactive programming** with Combine publishers
+- **Centralized design system** for maintainable UI
+- **Comprehensive unit testing** with mock implementations
+- **Clean architecture** with clear separation of concerns
+
+---
+
+## 🤝 Contributing
+
+This project demonstrates modern iOS development practices including:
+- SwiftUI declarative UI patterns
+- Combine reactive programming  
+- Protocol-oriented design
+- Modular architecture principles
+- Comprehensive state management
+- Design system implementation
+
+---
+
+## 📄 License
+
+This project is part of a coding challenge and is for demonstration purposes.
