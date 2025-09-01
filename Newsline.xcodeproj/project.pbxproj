@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8185F542E652419002C5852 /* CommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8185F532E652419002C5852 /* CommonUI */; };
 		F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4B892E65075B00EAEFA7 /* Favorites */; };
 		F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4BB62E65084C00EAEFA7 /* Storage */; };
 		F89D4C322E6520AC00EAEFA7 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4C312E6520AC00EAEFA7 /* CommonWeb */; };
@@ -78,6 +79,7 @@
 				F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */,
 				F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */,
 				F89D4C322E6520AC00EAEFA7 /* CommonWeb in Frameworks */,
+				F8185F542E652419002C5852 /* CommonUI in Frameworks */,
 				F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */,
 				F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */,
 			);
@@ -154,6 +156,7 @@
 				F89D4B892E65075B00EAEFA7 /* Favorites */,
 				F89D4BB62E65084C00EAEFA7 /* Storage */,
 				F89D4C312E6520AC00EAEFA7 /* CommonWeb */,
+				F8185F532E652419002C5852 /* CommonUI */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -244,6 +247,7 @@
 				F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */,
 				F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */,
 				F89D4C302E65209700EAEFA7 /* XCLocalSwiftPackageReference "Packages/Share/CommonWeb" */,
+				F8185F522E652408002C5852 /* XCLocalSwiftPackageReference "Packages/Share/CommonUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -608,6 +612,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		F8185F522E652408002C5852 /* XCLocalSwiftPackageReference "Packages/Share/CommonUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Share/CommonUI;
+		};
 		F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/Favorites;
@@ -635,6 +643,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F8185F532E652419002C5852 /* CommonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8185F522E652408002C5852 /* XCLocalSwiftPackageReference "Packages/Share/CommonUI" */;
+			productName = CommonUI;
+		};
 		F89D4B892E65075B00EAEFA7 /* Favorites */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */;
