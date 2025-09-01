@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import CommonUI
+
 struct FavoriteRowAsyncImage: View {
     
     let urlString: String
@@ -24,20 +26,20 @@ struct FavoriteRowAsyncImage: View {
 
             case .failure(_):
                 Image(systemName: "photo.fill")
-                    .foregroundColor(.gray)
+                    .foregroundColor(DesignSystem.colors.placeholder)
                     .scaledToFit()
-                    .padding(15)
+                    .padding(DesignSystem.metrics.cardPadding)
 
             case .empty:
                 ProgressView()
-                    .tint(.purple)
-                
+                    .tint(DesignSystem.colors.secondary)
+
             @unknown default:
                 EmptyView()
             }
         }
-        .frame(width: 80, height: 80)
-        .background(Color.gray.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .frame(width: DesignSystem.metrics.thumbnailMedium, height: DesignSystem.metrics.thumbnailMedium)
+        .background(DesignSystem.colors.placeholderBackground)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.metrics.cornerMedium))
     }
 }

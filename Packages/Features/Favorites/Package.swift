@@ -16,7 +16,8 @@ let package = Package(
             targets: ["Favorites"]),
     ],
     dependencies: [
-        .package(path: "../../Core/Storage")
+        .package(path: "../../Core/Storage"),
+        .package(path: "../../Share/CommonUI")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -24,7 +25,8 @@ let package = Package(
         .target(
             name: "Favorites",
             dependencies: [
-                .product(name: "Storage", package: "Storage")
+                .product(name: "Storage", package: "Storage"),
+                .product(name: "CommonUI", package: "CommonUI")
             ]),
         .testTarget(
             name: "FavoritesTests",
