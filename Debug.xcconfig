@@ -1,0 +1,4 @@
+// Important Note for Engineers:
+// Please replace the placeholder API key with your actual News API key from https://newsapi.org.
+// You can obtain a free API key by registering on their website.
+API_KEY=YOUR_API_KEY
