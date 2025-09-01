@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4B892E65075B00EAEFA7 /* Favorites */; };
 		F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4BB62E65084C00EAEFA7 /* Storage */; };
+		F89D4C322E6520AC00EAEFA7 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4C312E6520AC00EAEFA7 /* CommonWeb */; };
 		F89FCA8B2E63062B00BB82A7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F89FCA8A2E63062B00BB82A7 /* Debug.xcconfig */; };
-		F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */; };
 		F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */ = {isa = PBXBuildFile; productRef = F8B345902E64FAF500E7B2D9 /* Headlines */; };
 		F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */ = {isa = PBXBuildFile; productRef = F8B345922E64FAFA00E7B2D9 /* SourceSelection */; };
 /* End PBXBuildFile section */
@@ -77,7 +77,7 @@
 			files = (
 				F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */,
 				F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */,
-				F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */,
+				F89D4C322E6520AC00EAEFA7 /* CommonWeb in Frameworks */,
 				F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */,
 				F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */,
 			);
@@ -149,11 +149,11 @@
 			);
 			name = Newsline;
 			packageProductDependencies = (
-				F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */,
 				F8B345902E64FAF500E7B2D9 /* Headlines */,
 				F8B345922E64FAFA00E7B2D9 /* SourceSelection */,
 				F89D4B892E65075B00EAEFA7 /* Favorites */,
 				F89D4BB62E65084C00EAEFA7 /* Storage */,
+				F89D4C312E6520AC00EAEFA7 /* CommonWeb */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -238,12 +238,12 @@
 			mainGroup = F8D3B6832E626C4F00C59C08;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */,
 				F8B345882E64FAC100E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */,
 				F8B345892E64FACC00E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
 				F8B345B92E64FCF400E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Network/RestClient" */,
 				F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */,
 				F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */,
+				F89D4C302E65209700EAEFA7 /* XCLocalSwiftPackageReference "Packages/Share/CommonWeb" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -612,9 +612,9 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/Favorites;
 		};
-		F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */ = {
+		F89D4C302E65209700EAEFA7 /* XCLocalSwiftPackageReference "Packages/Share/CommonWeb" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/CommonWeb;
+			relativePath = Packages/Share/CommonWeb;
 		};
 		F8B345882E64FAC100E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/Headlines" */ = {
 			isa = XCLocalSwiftPackageReference;
@@ -645,9 +645,9 @@
 			package = F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */;
 			productName = Storage;
 		};
-		F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */ = {
+		F89D4C312E6520AC00EAEFA7 /* CommonWeb */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */;
+			package = F89D4C302E65209700EAEFA7 /* XCLocalSwiftPackageReference "Packages/Share/CommonWeb" */;
 			productName = CommonWeb;
 		};
 		F8B345902E64FAF500E7B2D9 /* Headlines */ = {
