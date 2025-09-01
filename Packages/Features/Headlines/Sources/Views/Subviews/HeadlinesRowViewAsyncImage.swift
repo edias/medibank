@@ -7,30 +7,37 @@
 
 import SwiftUI
 
+import CommonUI
+
 struct HeadlinesRowViewAsyncImage: View {
 
     let urlString: String
 
     var body: some View {
+
         AsyncImage(url: URL(string: urlString)) { phase in
+
             switch phase {
+
             case .success(let image):
-                image
-                    .resizable()
+                image.resizable()
                     .scaledToFill()
+
             case .failure(_):
                 Image(systemName: "photo")
-                    .foregroundColor(.gray)
+                    .foregroundColor(DesignSystem.colors.placeholder)
                     .scaledToFit()
                     .padding(10)
+
             case .empty:
                 ProgressView()
+
             @unknown default:
                 EmptyView()
             }
         }
-        .frame(width: 60, height: 60)
-        .background(Color.gray.opacity(0.2))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .frame(width: DesignSystem.metrics.thumbnailSmall, height: DesignSystem.metrics.thumbnailSmall)
+        .background(DesignSystem.colors.placeholderBackground)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.metrics.cornerSmall))
     }
 }

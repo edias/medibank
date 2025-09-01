@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Storage
+import CommonUI
 
 struct HeadlinesRowView: View {
 
@@ -16,37 +17,38 @@ struct HeadlinesRowView: View {
 
     var body: some View {
 
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: DesignSystem.metrics.large) {
 
             HeadlinesRowViewAsyncImage(urlString: article.urlToImage)
-                .padding(.top, 5)
+                .padding(.top, DesignSystem.metrics.small)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: DesignSystem.metrics.small) {
+
                 Text(article.title)
-                    .font(.headline)
-                    .lineLimit(2)
+                    .font(DesignSystem.typography.headline)
+                    .lineLimit(DesignSystem.typography.titleLines)
 
                 Text(article.description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
+                    .font(DesignSystem.typography.subheadline)
+                    .foregroundColor(DesignSystem.colors.secondaryText)
+                    .lineLimit(DesignSystem.typography.titleLines)
 
                 VStack(alignment: .leading) {
 
                     Text("By \(article.authorName)")
-                        .font(.caption)
+                        .font(DesignSystem.typography.caption)
                         .foregroundColor(.secondary)
 
                     Text(article.sourceName)
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.blue)
+                        .font(DesignSystem.typography.caption)
+                        .foregroundColor(DesignSystem.colors.onBrand)
+                        .padding(.horizontal, DesignSystem.metrics.medium)
+                        .padding(.vertical, DesignSystem.metrics.small)
+                        .background(DesignSystem.colors.primary)
                         .clipShape(Capsule())
                 }
             }
-            .padding(.vertical, 4)
+            .padding(.vertical, DesignSystem.metrics.small)
 
             Spacer()
         }
