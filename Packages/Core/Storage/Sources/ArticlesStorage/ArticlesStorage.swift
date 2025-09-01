@@ -1,15 +1,15 @@
 //
-//  File.swift
+//  ArticlesStorage.swift
 //  Storage
 //
 //  Created by Eduardo Dias on 01/09/2025.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 public protocol ArticlesStorage {
-    
+
     var articles: [Article] { get }
 
     var articlesPublisher: AnyPublisher<[Article], Never> { get }
@@ -42,7 +42,7 @@ public final class DefaultArticlesStorage: ArticlesStorage {
     public init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         let saved = defaults.articles(forKey: key)
-        self.storedArticles = saved
+        storedArticles = saved
         subject.send(saved)
     }
 
@@ -75,5 +75,3 @@ public final class DefaultArticlesStorage: ArticlesStorage {
         defaults.storeArticles(storedArticles, forKey: key)
     }
 }
-
-

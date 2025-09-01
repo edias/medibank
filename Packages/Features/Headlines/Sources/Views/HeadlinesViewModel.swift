@@ -8,8 +8,8 @@
 import Combine
 import Foundation
 
-import Storage
 import CommonUI
+import Storage
 
 final class HeadlinesViewModel: ObservableObject {
 
@@ -20,7 +20,7 @@ final class HeadlinesViewModel: ObservableObject {
     private(set) var viewState: HeadlinesViewState = .loading
 
     var headlines: [Article] {
-        guard case .loaded(let articles) = viewState else { return [] }
+        guard case let .loaded(articles) = viewState else { return [] }
         return articles
     }
 
@@ -30,7 +30,11 @@ final class HeadlinesViewModel: ObservableObject {
 
     private let onTapHeadline: @MainActor (Article) -> Void
 
-    init(networkServices: HeadlinesNetworkServices, storage: SelectionStorage, onTapHeadline: @escaping @MainActor (Article) -> Void) {
+    init(
+        networkServices: HeadlinesNetworkServices,
+        storage: SelectionStorage,
+        onTapHeadline: @escaping @MainActor (Article) -> Void
+    ) {
         self.networkServices = networkServices
         self.storage = storage
         self.onTapHeadline = onTapHeadline
@@ -41,7 +45,7 @@ final class HeadlinesViewModel: ObservableObject {
 
         // Set loading state before network call
         viewState = .loading
-        
+
         // Check if no sources are selected
         guard !storage.selections.isEmpty else {
             viewState = .noSourcesSelected(StateFactory.makeNoSourcesState())

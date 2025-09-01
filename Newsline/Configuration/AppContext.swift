@@ -1,5 +1,5 @@
 //
-//  RestClientContext.swift
+//  AppContext.swift
 //  Newsline
 //
 //  Created by Eduardo Dias on 29/08/2025.

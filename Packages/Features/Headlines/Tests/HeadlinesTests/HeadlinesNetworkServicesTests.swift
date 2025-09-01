@@ -5,49 +5,49 @@
 //  Created by Eduardo Dias on 31/08/2025.
 //
 
-import Testing
 import RestClient
+import Testing
 
 @testable import Headlines
 @testable import Storage
 
 @Suite("HeadlinesNetworkServices Tests")
 struct HeadlinesNetworkServicesTests {
-    
+
     @Test("fetchHeadlines should create correct endpoint and return articles")
     @MainActor
-    func testFetchHeadlinesSuccess() async throws {
+    func fetchHeadlinesSuccess() async throws {
 
         let mockRestClient = MockRestClient()
         let networkServices = DefaultHeadlinesNetworkServices(restClient: mockRestClient)
-        
+
         let expectedArticles = createMockArticles()
         let mockResponse = ArticlesResponse(articles: expectedArticles)
         mockRestClient.mockResponse = mockResponse
-        
+
         let sources = ["bbc-news", "cnn"]
         let result = try await networkServices.fetchHeadlines(bySources: sources)
-        
+
         #expect(result.count == expectedArticles.count)
         #expect(result[0].title == expectedArticles[0].title)
         #expect(mockRestClient.executeRequestCalled)
-        
+
         // Verify the endpoint was constructed correctly
         let capturedRequest = mockRestClient.lastRequest
         #expect(capturedRequest != nil)
     }
-    
+
     @Test("fetchHeadlines should propagate network errors")
     @MainActor
-    func testFetchHeadlinesNetworkError() async throws {
+    func fetchHeadlinesNetworkError() async throws {
 
         let mockRestClient = MockRestClient()
         let networkServices = DefaultHeadlinesNetworkServices(restClient: mockRestClient)
-        
+
         mockRestClient.shouldThrowError = true
-        
+
         let sources = ["bbc-news"]
-        
+
         do {
             _ = try await networkServices.fetchHeadlines(bySources: sources)
             #expect(Bool(false), "Expected error to be thrown")
@@ -56,37 +56,37 @@ struct HeadlinesNetworkServicesTests {
             #expect(mockRestClient.executeRequestCalled)
         }
     }
-    
+
     @Test("fetchHeadlines should handle empty sources array")
     @MainActor
-    func testFetchHeadlinesEmptySources() async throws {
+    func fetchHeadlinesEmptySources() async throws {
 
         let mockRestClient = MockRestClient()
         let networkServices = DefaultHeadlinesNetworkServices(restClient: mockRestClient)
-        
+
         let mockResponse = ArticlesResponse(articles: [])
         mockRestClient.mockResponse = mockResponse
-        
+
         let result = try await networkServices.fetchHeadlines(bySources: [])
-        
+
         #expect(result.isEmpty)
         #expect(mockRestClient.executeRequestCalled)
     }
-    
+
     @Test("fetchHeadlines should handle multiple sources")
     @MainActor
-    func testFetchHeadlinesMultipleSources() async throws {
+    func fetchHeadlinesMultipleSources() async throws {
 
         let mockRestClient = MockRestClient()
         let networkServices = DefaultHeadlinesNetworkServices(restClient: mockRestClient)
-        
+
         let expectedArticles = createMockArticles()
         let mockResponse = ArticlesResponse(articles: expectedArticles)
         mockRestClient.mockResponse = mockResponse
-        
+
         let sources = ["bbc-news", "cnn", "reuters", "associated-press"]
         let result = try await networkServices.fetchHeadlines(bySources: sources)
-        
+
         #expect(result.count == expectedArticles.count)
         #expect(mockRestClient.executeRequestCalled)
     }
@@ -104,21 +104,21 @@ final class MockRestClient: RestClient, @unchecked Sendable {
     var shouldThrowError = false
     var executeRequestCalled = false
     var lastRequest: Any?
-    
+
     func executeRequest<Endpoint>(_ clientRequest: RestClientRequest<Endpoint>) async throws -> Endpoint.ResponseData {
 
         executeRequestCalled = true
 
         lastRequest = clientRequest
-        
+
         if shouldThrowError {
             throw NetworkError(message: "Network request failed")
         }
-        
+
         guard let response = mockResponse as? Endpoint.ResponseData else {
             throw NetworkError(message: "Invalid mock response type")
         }
-        
+
         return response
     }
 }
@@ -137,7 +137,7 @@ private func createMockArticles() -> [Article] {
             description: "This is a test article description for unit testing",
             url: "https://example.com/breaking-news",
             urlToImage: "https://example.com/images/breaking-news.jpg",
-            publishedAt: "2025-08-31T10:00:00Z",
+            publishedAt: "2025-08-31T10:00:00Z"
         ),
         Article(
             source: source,
@@ -146,7 +146,7 @@ private func createMockArticles() -> [Article] {
             description: "Technology news and updates from the industry",
             url: "https://example.com/tech-update",
             urlToImage: "https://example.com/images/tech-update.jpg",
-            publishedAt: "2025-08-31T11:30:00Z",
+            publishedAt: "2025-08-31T11:30:00Z"
         )
     ]
 }

@@ -21,7 +21,7 @@ public protocol SelectionStorage: AnyObject {
 public final class DefaultSelectionStorage: SelectionStorage {
 
     /// Current selections (private set)
-    private(set) public var selections: [String] = [] {
+    public private(set) var selections: [String] = [] {
         didSet { subject.send(selections) }
     }
 
@@ -37,7 +37,7 @@ public final class DefaultSelectionStorage: SelectionStorage {
     public init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         let saved = defaults.stringArray(forKey: key) ?? []
-        self.selections = defaults.stringArray(forKey: key) ?? []
+        selections = defaults.stringArray(forKey: key) ?? []
         subject.send(saved)
     }
 
@@ -61,4 +61,3 @@ public final class DefaultSelectionStorage: SelectionStorage {
         defaults.synchronize()
     }
 }
-

@@ -19,11 +19,11 @@ struct HeadlinesRowViewAsyncImage: View {
 
             switch phase {
 
-            case .success(let image):
+            case let .success(image):
                 image.resizable()
                     .scaledToFill()
 
-            case .failure(_):
+            case .failure:
                 Image(systemName: "photo")
                     .foregroundColor(DesignSystem.colors.placeholder)
                     .scaledToFit()

@@ -13,7 +13,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Headlines",
-            targets: ["Headlines"]),
+            targets: ["Headlines"]
+        )
     ],
     dependencies: [
         .package(path: "../../Core/Network/RestClient"),
@@ -33,7 +34,7 @@ let package = Package(
         ),
         .testTarget(
             name: "HeadlinesTests",
-            dependencies: ["Headlines", .product(name: "Storage", package: "Storage")],
-        ),
+            dependencies: ["Headlines", .product(name: "Storage", package: "Storage")]
+        )
     ]
 )

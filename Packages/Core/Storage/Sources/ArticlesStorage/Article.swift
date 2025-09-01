@@ -18,7 +18,15 @@ public struct Article: Codable, Identifiable, Sendable {
     public let urlToImage: String
     public let publishedAt: String
 
-    public init(source: ArticleSource, author: String? = nil, title: String, description: String, url: String, urlToImage: String, publishedAt: String) {
+    public init(
+        source: ArticleSource,
+        author: String? = nil,
+        title: String,
+        description: String,
+        url: String,
+        urlToImage: String,
+        publishedAt: String
+    ) {
         self.source = source
         self.author = author
         self.title = title
@@ -33,12 +41,12 @@ public struct Article: Codable, Identifiable, Sendable {
     }
 }
 
-extension Article {
-    public var authorName: String {
+public extension Article {
+    var authorName: String {
         author ?? source.name
     }
 
-    public var sourceName: String {
+    var sourceName: String {
         source.name
     }
 }
@@ -46,7 +54,7 @@ extension Article {
 public struct ArticleSource: Codable, Sendable {
     public let id: String
     public let name: String
-    
+
     public init(id: String, name: String) {
         self.id = id
         self.name = name

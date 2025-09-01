@@ -1,12 +1,12 @@
 //
-//  HeadlinesFactory.swift
+//  HeadlinesDependencies.swift
 //  Headlines
 //
 //  Created by Eduardo Dias on 31/08/2025.
 //
 
-import SwiftUI
 import Storage
+import SwiftUI
 
 public protocol CommonWebDependencies {
     var articlesStorage: ArticlesStorage { get }

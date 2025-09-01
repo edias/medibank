@@ -14,7 +14,7 @@ public protocol UrlHost {
 public struct DefaultUrlHost: UrlHost {
 
     public let baseUrl: String
-    
+
     public init(baseUrl: String) {
         self.baseUrl = baseUrl
     }

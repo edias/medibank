@@ -12,18 +12,18 @@ import Storage
 
 @MainActor
 final class FavoritesViewModel: ObservableObject {
-    
+
     var title: String { Constants.title }
     var loadingText: String { Constants.loadingText }
-    
+
     @Published
     private(set) var viewState: FavoritesViewState = .loading
-    
+
     var savedArticles: [Article] {
-        guard case .loaded(let articles) = viewState else { return [] }
+        guard case let .loaded(articles) = viewState else { return [] }
         return articles
     }
-    
+
     private let articlesStorage: ArticlesStorage
     private var cancellables = Set<AnyCancellable>()
 
@@ -33,7 +33,7 @@ final class FavoritesViewModel: ObservableObject {
 
         self.articlesStorage = articlesStorage
         self.onTapFavorite = onTapFavorite
-        
+
         articlesStorage.articlesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] articles in
@@ -41,21 +41,21 @@ final class FavoritesViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func loadFavorites() {
         viewState = .loading
         let articles = articlesStorage.articles
         updateViewState(with: articles)
     }
-    
+
     private func updateViewState(with articles: [Article]) {
         viewState = articles.isEmpty ? .empty(StateFactory.makeEmptyFavoritesState()) : .loaded(articles)
     }
-        
+
     func deleteArticles(at offsets: IndexSet) {
 
-        guard case .loaded(let articles) = viewState else { return }
-        
+        guard case let .loaded(articles) = viewState else { return }
+
         for index in offsets {
             let article = articles[index]
             articlesStorage.removeArticle(article.url)

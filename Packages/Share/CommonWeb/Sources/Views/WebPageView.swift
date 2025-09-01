@@ -35,6 +35,3 @@ struct WebPageView: View {
         }
     }
 }
-
-
-

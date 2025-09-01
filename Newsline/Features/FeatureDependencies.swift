@@ -1,14 +1,14 @@
 //
-//  FeatureDependecnies.swift
+//  FeatureDependencies.swift
 //  Newsline
 //
 //  Created by Eduardo Dias on 30/08/2025.
 //
 
 import CommonWeb
+import Favorites
 import Headlines
 import SourceSelection
-import Favorites
 
 import RestClient
 import Storage
@@ -21,7 +21,7 @@ final class FeatureDependencies {
 
     private let selectionStorage: SelectionStorage
     private let articlesStorage: ArticlesStorage
-    
+
     private let onTapArticle: @MainActor (Article) -> Void
 
     lazy var commonWeb: CommonWebDependencies = DefaultCommonWebDependencies(

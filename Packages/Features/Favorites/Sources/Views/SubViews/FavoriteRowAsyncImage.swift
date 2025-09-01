@@ -10,21 +10,21 @@ import SwiftUI
 import CommonUI
 
 struct FavoriteRowAsyncImage: View {
-    
+
     let urlString: String
-    
+
     var body: some View {
 
         AsyncImage(url: URL(string: urlString)) { phase in
 
             switch phase {
 
-            case .success(let image):
+            case let .success(image):
                 image
                     .resizable()
                     .scaledToFill()
 
-            case .failure(_):
+            case .failure:
                 Image(systemName: "photo.fill")
                     .foregroundColor(DesignSystem.colors.placeholder)
                     .scaledToFit()

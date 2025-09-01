@@ -1,6 +1,6 @@
 import Combine
-import Testing
 import SwiftUI
+import Testing
 
 @testable import Storage
 
@@ -316,7 +316,7 @@ private actor AsyncExpectation {
     func wait(for timeout: TimeInterval) async {
         let deadline = Date().addingTimeInterval(timeout)
 
-        while !isFulfilled && Date() < deadline {
+        while !isFulfilled, Date() < deadline {
             try? await Task.sleep(nanoseconds: 10_000_000) // 10ms
         }
     }

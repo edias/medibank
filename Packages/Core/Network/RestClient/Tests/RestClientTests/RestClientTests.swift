@@ -131,7 +131,7 @@ struct RestClientTests {
 
         let clientRequest = makeGetRequest()
         let result = try await client.executeRequest(clientRequest)
-        
+
         #expect(result.id == 1)
         #expect(result.message == "Test")
     }
@@ -151,7 +151,7 @@ struct RestClientTests {
         // Test that the client was created successfully by attempting to execute a request
         // This will fail if the client wasn't properly initialized
         let clientRequest = makeGetRequest()
-        
+
         do {
             _ = try await client.executeRequest(clientRequest)
         } catch {
@@ -456,8 +456,7 @@ private class MockAPIKeyProvider: APIKeyProvider {
     }
 }
 
-private class MockURLSession: URLSessionProtocol, @unchecked Sendable
-{
+private class MockURLSession: URLSessionProtocol, @unchecked Sendable {
     private var mockData: Data = .init()
     private var mockResponse: URLResponse = .init()
     private var shouldThrow = false

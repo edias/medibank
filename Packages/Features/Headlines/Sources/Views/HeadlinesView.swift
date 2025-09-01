@@ -5,8 +5,8 @@
 //  Created by Eduardo Dias on 31/08/2025.
 //
 
-import SwiftUI
 import CommonUI
+import SwiftUI
 
 struct HeadlinesView: View {
 
@@ -29,13 +29,13 @@ struct HeadlinesView: View {
                     ProgressView(viewModel.loadingText)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundColor(DesignSystem.colors.secondaryText)
-                
-                case .loaded(let articles):
+
+                case let .loaded(articles):
                     List(articles, id: \.id) { article in
                         HeadlinesRowView(article: article, onTapHeadline: viewModel.onTapHeadline)
                     }
-                
-                case .error(let emptyState), .noSourcesSelected(let emptyState):
+
+                case let .error(emptyState), let .noSourcesSelected(emptyState):
                     EmptyStateView(emptyState)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }

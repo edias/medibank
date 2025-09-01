@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ObservableSelectionStorage.swift
 //  SourceSelection
 //
 //  Created by Eduardo Dias on 31/08/2025.
@@ -29,7 +29,8 @@ import Foundation
 public final class ObservableSelectionStorage: ObservableObject {
 
     /// The current selection state adapted for SwiftUI observation
-    @Published private(set) var selections: [String] = []
+    @Published
+    private(set) var selections: [String] = []
 
     private let storage: SelectionStorage
     private var cancellables = Set<AnyCancellable>()
@@ -38,6 +39,7 @@ public final class ObservableSelectionStorage: ObservableObject {
     /// - Parameter storage: The Combine-based storage implementation to adapt
     public init(storage: SelectionStorage) {
         self.storage = storage
+        // swiftformat:disable:next redundantSelf
         self.selections = storage.selections
 
         storage.selectionsPublisher

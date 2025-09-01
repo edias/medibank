@@ -5,14 +5,14 @@
 //  Created by Eduardo Dias on 31/08/2025.
 //
 
-import SwiftUI
-import Storage
 import CommonUI
+import Storage
+import SwiftUI
 
 struct HeadlinesRowView: View {
 
     let article: Article
-    
+
     let onTapHeadline: (Article) -> Void
 
     var body: some View {

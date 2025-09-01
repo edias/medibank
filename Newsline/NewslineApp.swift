@@ -5,8 +5,8 @@
 //  Created by Eduardo Dias on 30/08/2025.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct NewslineApp: App {

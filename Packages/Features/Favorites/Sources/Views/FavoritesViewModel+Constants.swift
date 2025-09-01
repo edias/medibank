@@ -5,7 +5,6 @@
 //  Created by Eduardo Dias on 01/09/2025.
 //
 
-
 extension FavoritesViewModel {
     enum Constants {
         static let title = "Favorites"

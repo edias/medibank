@@ -12,11 +12,11 @@ struct WebView: UIViewRepresentable {
 
     let url: URL
 
-    func makeUIView(context: Context) -> WKWebView {
+    func makeUIView(context _: Context) -> WKWebView {
         WKWebView()
     }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    func updateUIView(_ uiView: WKWebView, context _: Context) {
         let request = URLRequest(url: url)
         uiView.load(request)
     }

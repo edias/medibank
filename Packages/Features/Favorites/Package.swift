@@ -13,7 +13,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Favorites",
-            targets: ["Favorites"]),
+            targets: ["Favorites"]
+        )
     ],
     dependencies: [
         .package(path: "../../Core/Storage"),
@@ -27,7 +28,8 @@ let package = Package(
             dependencies: [
                 .product(name: "Storage", package: "Storage"),
                 .product(name: "CommonUI", package: "CommonUI")
-            ]),
+            ]
+        ),
         .testTarget(
             name: "FavoritesTests",
             dependencies: [
@@ -35,6 +37,6 @@ let package = Package(
                 .product(name: "Storage", package: "Storage"),
                 .product(name: "CommonUI", package: "CommonUI")
             ]
-        ),
+        )
     ]
 )

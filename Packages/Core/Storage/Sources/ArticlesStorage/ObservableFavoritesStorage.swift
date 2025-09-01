@@ -10,7 +10,8 @@ import Foundation
 
 public final class ObservableArticlesStorage: ObservableObject {
 
-    @Published private(set) var articles: [Article] = []
+    @Published
+    private(set) var articles: [Article] = []
 
     private let storage: ArticlesStorage
     private var cancellables = Set<AnyCancellable>()
@@ -18,6 +19,7 @@ public final class ObservableArticlesStorage: ObservableObject {
     public init(storage: ArticlesStorage) {
 
         self.storage = storage
+        // swiftformat:disable:next redundantSelf
         self.articles = storage.articles
 
         storage.articlesPublisher

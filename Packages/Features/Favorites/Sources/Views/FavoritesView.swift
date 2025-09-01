@@ -10,15 +10,15 @@ import SwiftUI
 import CommonUI
 
 struct FavoritesView: View {
-    
+
     @StateObject
     private var viewModel: FavoritesViewModel
 
     init(viewModel: FavoritesViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
-    public var body: some View {
+
+    var body: some View {
 
         NavigationView {
 
@@ -30,8 +30,8 @@ struct FavoritesView: View {
                     ProgressView(viewModel.loadingText)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundColor(DesignSystem.colors.secondaryText)
-                
-                case .loaded(let articles):
+
+                case let .loaded(articles):
                     List {
                         ForEach(articles, id: \.id) { article in
                             FavoriteRowView(article: article, onTapFavorite: viewModel.onTapFavorite)
@@ -39,8 +39,8 @@ struct FavoritesView: View {
                         .onDelete(perform: viewModel.deleteArticles)
                     }
                     .listStyle(PlainListStyle())
-                
-                case .empty(let emptyState):
+
+                case let .empty(emptyState):
                     EmptyStateView(emptyState)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
@@ -52,4 +52,3 @@ struct FavoritesView: View {
         }
     }
 }
-

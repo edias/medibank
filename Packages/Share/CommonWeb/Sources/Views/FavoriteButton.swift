@@ -5,8 +5,8 @@
 //  Created by Eduardo Dias on 01/09/2025.
 //
 
-import SwiftUI
 import Storage
+import SwiftUI
 
 import CommonUI
 
@@ -20,7 +20,7 @@ struct FavoriteButton: View {
     var body: some View {
 
         ZStack {
-            
+
             Circle()
                 .fill(DesignSystem.colors.onBrand)
                 .frame(width: DesignSystem.metrics.buttonSize, height: DesignSystem.metrics.buttonSize)
@@ -31,7 +31,7 @@ struct FavoriteButton: View {
 
             Image(systemName: storage.isArticleSaved(article.url) ? "heart.fill" : "heart")
                 .font(DesignSystem.typography.buttonText)
-                            .foregroundColor(.white)
+                .foregroundColor(.white)
         }
         .onTapGesture {
             storage.toggleArticle(for: article)

@@ -29,7 +29,10 @@ public struct FavoritesFactory: @preconcurrency FeatureFactory {
 
     @MainActor
     public func makeRootView() -> some View {
-        let viewModel = FavoritesViewModel(articlesStorage: dependencies.articlesStorage, onTapFavorite: dependencies.onTapFavorite)
+        let viewModel = FavoritesViewModel(
+            articlesStorage: dependencies.articlesStorage,
+            onTapFavorite: dependencies.onTapFavorite
+        )
         return FavoritesView(viewModel: viewModel)
     }
 }

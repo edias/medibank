@@ -7,16 +7,17 @@
 
 import SwiftUI
 
+import Favorites
 import Headlines
 import SourceSelection
-import Favorites
 
 import CommonWeb
 import Storage
 
 struct NewslineTabView: View {
 
-    @State private var article: Article?
+    @State
+    private var article: Article?
 
     private var dependencies: FeatureDependencies {
         FeatureDependencies { selectedArticle in
@@ -25,7 +26,7 @@ struct NewslineTabView: View {
     }
 
     var body: some View {
-        
+
         TabView {
 
             HeadlinesFactory(dependencies.headlines).makeRootView()
