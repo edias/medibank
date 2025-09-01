@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 import Storage
 
+import CommonUI
+
 @MainActor
 final class FavoritesViewModel: ObservableObject {
     
@@ -17,8 +19,13 @@ final class FavoritesViewModel: ObservableObject {
     
     private let articlesStorage: ArticlesStorage
     private var cancellables = Set<AnyCancellable>()
+
     let onTapFavorite: (Article) -> Void
-    
+
+    var emptyState: EmptyState {
+        .init(iconName: "heart", title: "No Favorites Yet", description: "Save articles from Headlines to see them here")
+    }
+
     init(articlesStorage: ArticlesStorage, onTapFavorite: @escaping (Article) -> Void) {
 
         self.articlesStorage = articlesStorage

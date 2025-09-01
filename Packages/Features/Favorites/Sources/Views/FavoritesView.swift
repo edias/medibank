@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import CommonUI
+
 struct FavoritesView: View {
     
     @StateObject
@@ -23,7 +25,7 @@ struct FavoritesView: View {
             VStack {
 
                 if viewModel.savedArticles.isEmpty {
-                    EmptyFavoritesView()
+                    EmptyStateView(emptyState: viewModel.emptyState)
 
                 } else {
                     List {
