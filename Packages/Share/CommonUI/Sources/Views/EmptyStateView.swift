@@ -11,7 +11,7 @@ public struct EmptyStateView: View {
 
     let emptyState: EmptyState
 
-    public init(emptyState: EmptyState) {
+    public init(_ emptyState: EmptyState) {
         self.emptyState = emptyState
     }
 
@@ -51,7 +51,7 @@ public struct EmptyState {
 
 #Preview {
     EmptyStateView(
-        emptyState: EmptyState(
+        .init(
             iconName: "tray",
             title: "No Items",
             description: "You don’t have anything here yet."

@@ -35,12 +35,8 @@ struct HeadlinesView: View {
                         HeadlinesRowView(article: article, onTapHeadline: viewModel.onTapHeadline)
                     }
                 
-                case .error(let emptyState):
-                    EmptyStateView(emptyState: emptyState)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-                case .noSourcesSelected(let emptyState):
-                    EmptyStateView(emptyState: emptyState)
+                case .error(let emptyState), .noSourcesSelected(let emptyState):
+                    EmptyStateView(emptyState)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }

@@ -25,7 +25,7 @@ struct FavoritesView: View {
             VStack {
 
                 if viewModel.savedArticles.isEmpty {
-                    EmptyStateView(emptyState: viewModel.emptyState)
+                    EmptyStateView(viewModel.emptyState)
 
                 } else {
                     List {
