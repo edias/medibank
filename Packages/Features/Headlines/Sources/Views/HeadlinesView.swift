@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CommonUI
 
 struct HeadlinesView: View {
 
@@ -17,13 +18,33 @@ struct HeadlinesView: View {
     }
 
     var body: some View {
+
         NavigationView {
+
             VStack {
-                List(viewModel.headlines, id: \.id) { article in
-                    HeadlinesRowView(article: article, onTapHeadline: viewModel.onTapHeadline)
+
+                switch viewModel.viewState {
+
+                case .loading:
+                    ProgressView(viewModel.loadingText)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .foregroundColor(DesignSystem.colors.secondaryText)
+                
+                case .loaded(let articles):
+                    List(articles, id: \.id) { article in
+                        HeadlinesRowView(article: article, onTapHeadline: viewModel.onTapHeadline)
+                    }
+                
+                case .error(let emptyState):
+                    EmptyStateView(emptyState: emptyState)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                case .noSourcesSelected(let emptyState):
+                    EmptyStateView(emptyState: emptyState)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .navigationTitle("Headlines")
+            .navigationTitle(viewModel.title)
             .task { await viewModel.loadArticles() }
         }
     }

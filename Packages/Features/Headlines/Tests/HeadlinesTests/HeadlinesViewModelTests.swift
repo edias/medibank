@@ -1,19 +1,27 @@
-import Testing
+import CommonUI
 import Combine
 import Foundation
 import Storage
+import Testing
+
 @testable import Headlines
 
 @Suite("HeadlinesViewModel Tests")
 @MainActor
 struct HeadlinesViewModelTests {
     
-    @Test("Initial state should have empty headlines")
+    @Test("Initial state should be loading")
     func initialState() async throws {
 
         let mockNetworkServices = MockHeadlinesNetworkServices()
         let mockStorage = MockSelectionStorage()
         let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
+        
+        if case .loading = viewModel.viewState {
+            // Test passes
+        } else {
+            #expect(Bool(false), "Expected initial state to be loading")
+        }
         
         #expect(viewModel.headlines.isEmpty)
     }
@@ -31,6 +39,14 @@ struct HeadlinesViewModelTests {
         
         await viewModel.loadArticles()
         
+        // Test loaded state with articles
+        if case .loaded(let articles) = viewModel.viewState {
+            #expect(articles.count == expectedArticles.count)
+            #expect(articles[0].title == expectedArticles[0].title)
+        } else {
+            #expect(Bool(false), "Expected state to be loaded with articles")
+        }
+        
         #expect(viewModel.headlines.count == expectedArticles.count)
         #expect(viewModel.headlines[0].title == expectedArticles[0].title)
         #expect(mockNetworkServices.fetchHeadlinesCalled)
@@ -45,8 +61,18 @@ struct HeadlinesViewModelTests {
         let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
         
         mockNetworkServices.shouldThrowError = true
+        mockStorage.mockSelections = ["source1"] // Ensure sources are selected
         
         await viewModel.loadArticles()
+        
+        // Test error state
+        if case .error(let emptyState) = viewModel.viewState {
+            #expect(!emptyState.title.isEmpty)
+            #expect(!emptyState.description.isEmpty)
+            #expect(!emptyState.iconName.isEmpty)
+        } else {
+            #expect(Bool(false), "Expected state to be error")
+        }
         
         #expect(viewModel.headlines.isEmpty)
         #expect(mockNetworkServices.fetchHeadlinesCalled)
@@ -66,6 +92,80 @@ struct HeadlinesViewModelTests {
         await viewModel.loadArticles()
         
         #expect(mockNetworkServices.lastFetchedSources == testSelections)
+        
+        // Test error state when no articles returned
+        if case .error(let emptyState) = viewModel.viewState {
+            #expect(!emptyState.title.isEmpty)
+        } else {
+            #expect(Bool(false), "Expected state to be error when no articles returned")
+        }
+    }
+    
+    @Test("loadArticles should handle no sources selected")
+    func loadArticlesNoSourcesSelected() async throws {
+
+        let mockNetworkServices = MockHeadlinesNetworkServices()
+        let mockStorage = MockSelectionStorage()
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
+        
+        mockStorage.mockSelections = [] // No sources selected
+        
+        await viewModel.loadArticles()
+        
+        // Test no sources selected state
+        if case .noSourcesSelected(let emptyState) = viewModel.viewState {
+            #expect(emptyState.title.contains("No Sources"))
+            #expect(emptyState.description.contains("Sources"))
+            #expect(emptyState.iconName.contains("globe"))
+        } else {
+            #expect(Bool(false), "Expected state to be noSourcesSelected")
+        }
+        
+        #expect(viewModel.headlines.isEmpty)
+        #expect(!mockNetworkServices.fetchHeadlinesCalled) // Network should not be called
+    }
+    
+    @Test("loadArticles should show loading state initially")
+    func loadArticlesShowsLoading() async throws {
+
+        let mockNetworkServices = MockHeadlinesNetworkServices()
+        let mockStorage = MockSelectionStorage()
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
+        
+        mockStorage.mockSelections = ["source1"]
+        mockNetworkServices.mockArticles = createMockArticles()
+        
+        // Start loading (but don't await yet)
+        let loadTask = Task {
+            await viewModel.loadArticles()
+        }
+        
+        // Check that loading state is set
+        if case .loading = viewModel.viewState {
+            // Test passes
+        } else {
+            #expect(Bool(false), "Expected state to be loading during network call")
+        }
+        
+        await loadTask.value
+        
+        // After loading, should be in loaded state
+        if case .loaded = viewModel.viewState {
+            // Test passes
+        } else {
+            #expect(Bool(false), "Expected state to be loaded after successful network call")
+        }
+    }
+    
+    @Test("ViewModel should expose title and loading text constants")
+    func viewModelConstants() async throws {
+        
+        let mockNetworkServices = MockHeadlinesNetworkServices()
+        let mockStorage = MockSelectionStorage()
+        let viewModel = HeadlinesViewModel(networkServices: mockNetworkServices, storage: mockStorage, onTapHeadline: { _ in })
+        
+        #expect(viewModel.title == "Headlines")
+        #expect(viewModel.loadingText == "Loading Headlines...")
     }
 }
 

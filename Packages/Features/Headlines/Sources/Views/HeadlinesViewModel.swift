@@ -9,11 +9,20 @@ import Combine
 import Foundation
 
 import Storage
+import CommonUI
 
 final class HeadlinesViewModel: ObservableObject {
 
+    var title: String { Constants.title }
+    var loadingText: String { Constants.loadingText }
+
     @Published
-    private(set) var headlines: [Article] = []
+    private(set) var viewState: HeadlinesViewState = .loading
+
+    var headlines: [Article] {
+        guard case .loaded(let articles) = viewState else { return [] }
+        return articles
+    }
 
     private let networkServices: HeadlinesNetworkServices
 
@@ -30,12 +39,20 @@ final class HeadlinesViewModel: ObservableObject {
     @MainActor
     func loadArticles() async {
 
+        // Set loading state before network call
+        viewState = .loading
+        
+        // Check if no sources are selected
+        guard !storage.selections.isEmpty else {
+            viewState = .noSourcesSelected(StateFactory.makeNoSourcesState())
+            return
+        }
+
         do {
-            headlines = try await networkServices.fetchHeadlines(bySources: storage.selections)
+            let articles = try await networkServices.fetchHeadlines(bySources: storage.selections)
+            viewState = articles.isEmpty ? .error(StateFactory.makeNoArticlesState()) : .loaded(articles)
         } catch {
-            print(error)
-            headlines = []
-            // TODO: Implement failure scenarioa
+            viewState = .error(StateFactory.makeErrorState())
         }
     }
 
