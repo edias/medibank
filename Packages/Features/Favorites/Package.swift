@@ -30,7 +30,11 @@ let package = Package(
             ]),
         .testTarget(
             name: "FavoritesTests",
-            dependencies: ["Favorites"]
+            dependencies: [
+                "Favorites",
+                .product(name: "Storage", package: "Storage"),
+                .product(name: "CommonUI", package: "CommonUI")
+            ]
         ),
     ]
 )
