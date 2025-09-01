@@ -48,3 +48,13 @@ public struct EmptyState {
         self.description = description
     }
 }
+
+#Preview {
+    EmptyStateView(
+        emptyState: EmptyState(
+            iconName: "tray",
+            title: "No Items",
+            description: "You don’t have anything here yet."
+        )
+    )
+}
