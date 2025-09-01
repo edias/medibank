@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-import CommonWeb
 import Headlines
 import SourceSelection
+import Favorites
 
+import CommonWeb
 import Storage
 
 struct NewslineTabView: View {
@@ -37,6 +38,12 @@ struct NewslineTabView: View {
                 .tabItem {
                     Image(systemName: "globe")
                     Text("Sources")
+                }
+
+            FavoritesFactory(dependencies.favorites).makeRootView()
+                .tabItem {
+                    Image(systemName: "globe")
+                    Text("Favorites")
                 }
 
         }.sheet(item: $article) { article in

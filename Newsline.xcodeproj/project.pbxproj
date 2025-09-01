@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4B892E65075B00EAEFA7 /* Favorites */; };
+		F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = F89D4BB62E65084C00EAEFA7 /* Storage */; };
 		F89FCA8B2E63062B00BB82A7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F89FCA8A2E63062B00BB82A7 /* Debug.xcconfig */; };
 		F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */ = {isa = PBXBuildFile; productRef = F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */; };
 		F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */ = {isa = PBXBuildFile; productRef = F8B345902E64FAF500E7B2D9 /* Headlines */; };
@@ -73,8 +75,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F89D4B8A2E65075B00EAEFA7 /* Favorites in Frameworks */,
 				F8B345932E64FAFA00E7B2D9 /* SourceSelection in Frameworks */,
 				F8B3458F2E64FAEC00E7B2D9 /* CommonWeb in Frameworks */,
+				F89D4BB72E65084C00EAEFA7 /* Storage in Frameworks */,
 				F8B345912E64FAF500E7B2D9 /* Headlines in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +152,8 @@
 				F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */,
 				F8B345902E64FAF500E7B2D9 /* Headlines */,
 				F8B345922E64FAFA00E7B2D9 /* SourceSelection */,
+				F89D4B892E65075B00EAEFA7 /* Favorites */,
+				F89D4BB62E65084C00EAEFA7 /* Storage */,
 			);
 			productName = Newsline;
 			productReference = F8D3B68C2E626C4F00C59C08 /* Newsline.app */;
@@ -237,6 +243,7 @@
 				F8B345892E64FACC00E7B2D9 /* XCLocalSwiftPackageReference "Packages/Features/SourceSelection" */,
 				F8B345B92E64FCF400E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Network/RestClient" */,
 				F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */,
+				F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F8D3B68D2E626C4F00C59C08 /* Products */;
@@ -601,6 +608,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Features/Favorites;
+		};
 		F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/CommonWeb;
@@ -624,6 +635,16 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F89D4B892E65075B00EAEFA7 /* Favorites */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F89D4B882E65074E00EAEFA7 /* XCLocalSwiftPackageReference "Packages/Features/Favorites" */;
+			productName = Favorites;
+		};
+		F89D4BB62E65084C00EAEFA7 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8B345BA2E64FD0000E7B2D9 /* XCLocalSwiftPackageReference "Packages/Core/Storage" */;
+			productName = Storage;
+		};
 		F8B3458E2E64FAEC00E7B2D9 /* CommonWeb */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F8B345872E64FAB700E7B2D9 /* XCLocalSwiftPackageReference "Packages/CommonWeb" */;

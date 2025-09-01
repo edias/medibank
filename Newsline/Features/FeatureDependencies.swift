@@ -8,6 +8,7 @@
 import CommonWeb
 import Headlines
 import SourceSelection
+import Favorites
 
 import RestClient
 import Storage
@@ -21,7 +22,7 @@ final class FeatureDependencies {
     private let selectionStorage: SelectionStorage
     private let articlesStorage: ArticlesStorage
     
-    private let onTapHeadline: @MainActor (Article) -> Void
+    private let onTapArticle: @MainActor (Article) -> Void
 
     lazy var commonWeb: CommonWebDependencies = DefaultCommonWebDependencies(
         articlesStorage: articlesStorage
@@ -30,7 +31,7 @@ final class FeatureDependencies {
     lazy var headlines: HeadlinesDependencies = DefaultHeadlinesDependencies(
         restClient: restClient,
         selectionStorage: selectionStorage,
-        onTapHeadline: onTapHeadline
+        onTapHeadline: onTapArticle
     )
 
     lazy var sourceSelection: SourceSelectionDependencies = DefaultSourceSelectionDependencies(
@@ -38,15 +39,20 @@ final class FeatureDependencies {
         selectionStorage: selectionStorage
     )
 
+    lazy var favorites: FavoritesDependencies = DefaultFavoritesDependencies(
+        articlesStorage: articlesStorage,
+        onTapFavorite: onTapArticle
+    )
+
     init(
         restClient: RestClient = AppContext.shared.restClient,
         selectionStorage: SelectionStorage = AppContext.shared.selectionStorage,
         articlesStorage: ArticlesStorage = AppContext.shared.articlesStorage,
-        onTapHeadline: @escaping @MainActor (Article) -> Void
+        onTapArticle: @escaping @MainActor (Article) -> Void
     ) {
         self.restClient = restClient
         self.selectionStorage = selectionStorage
         self.articlesStorage = articlesStorage
-        self.onTapHeadline = onTapHeadline
+        self.onTapArticle = onTapArticle
     }
 }
