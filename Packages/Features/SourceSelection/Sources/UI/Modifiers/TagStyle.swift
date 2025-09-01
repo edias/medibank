@@ -7,15 +7,16 @@
 
 import SwiftUI
 
+import CommonUI
+
 struct TagStyle: ViewModifier {
 
     func body(content: Content) -> some View {
         content
             .font(.caption2)
-            .padding(.horizontal, Metrics.medium)
-            .padding(.vertical, Metrics.extraSmall)
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(Metrics.small)
+            .padding(.vertical, DesignSystem.metrics.medium)
+            .background(DesignSystem.colors.placeholderBackground)
+            .cornerRadius(DesignSystem.metrics.cornerExtraSmall)
     }
 }
 

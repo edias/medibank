@@ -19,8 +19,8 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../Core/Network/RestClient"),
-        .package(path: "../../Core/Storage")
-
+        .package(path: "../../Core/Storage"),
+        .package(path: "../../Share/CommonUI")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -29,7 +29,8 @@ let package = Package(
             name: "SourceSelection",
             dependencies: [
                 .product(name: "RestClient", package: "RestClient"),
-                .product(name: "Storage", package: "Storage")
+                .product(name: "Storage", package: "Storage"),
+                .product(name: "CommonUI", package: "CommonUI")
             ],
             resources: [
                 .process("Resources")

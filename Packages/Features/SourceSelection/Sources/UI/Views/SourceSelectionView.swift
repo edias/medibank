@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import CommonUI
+
 struct SourceSelectionView: View {
 
     @StateObject
@@ -21,7 +23,7 @@ struct SourceSelectionView: View {
             List(viewModel.sources) { source in
                 SourceRowView(source: source)
             }
-            .padding(.top, Metrics.medium)
+            .padding(.top, DesignSystem.metrics.cardMargin)
             .navigationTitle(viewModel.title)
             .task {
                 await viewModel.loadSources()

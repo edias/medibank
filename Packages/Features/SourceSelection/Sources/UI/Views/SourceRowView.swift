@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+import CommonUI
 import Storage
 
 struct SourceRowView: View {
@@ -16,15 +18,17 @@ struct SourceRowView: View {
     private var storage: ObservableSelectionStorage
 
     var body: some View {
+
         HStack {
-            VStack(alignment: .leading, spacing: Metrics.small) {
+
+            VStack(alignment: .leading, spacing: DesignSystem.metrics.small) {
                 Text(source.name)
-                    .font(.headline)
+                    .font(DesignSystem.typography.headline)
 
                 Text(source.description)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
+                    .font(DesignSystem.typography.caption)
+                    .foregroundColor(DesignSystem.colors.secondaryText)
+                    .lineLimit(DesignSystem.typography.titleLines)
 
                 HStack {
                     Text(source.category.capitalized)
@@ -40,10 +44,10 @@ struct SourceRowView: View {
             Button(action: { storage.toggleSelection(for: source.id) }) {
                 Image(systemName: storage.isSelected(source.id) ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(storage.isSelected(source.id) ? .blue : .gray)
-                    .font(.title2)
+                    .font(DesignSystem.typography.title2)
             }
         }
-        .padding(.vertical, Metrics.small)
+        .padding(.vertical, DesignSystem.metrics.small)
         .contentShape(Rectangle())
         .onTapGesture {
             storage.toggleSelection(for: source.id)
