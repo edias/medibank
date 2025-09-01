@@ -38,9 +38,9 @@ public struct EmptyStateView: View {
 
 public struct EmptyState {
 
-    let iconName: String
-    let title: String
-    let description: String
+    public let iconName: String
+    public let title: String
+    public let description: String
 
     public init(iconName: String, title: String, description: String) {
         self.iconName = iconName
