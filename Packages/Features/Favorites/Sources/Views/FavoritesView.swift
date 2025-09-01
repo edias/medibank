@@ -24,20 +24,28 @@ struct FavoritesView: View {
 
             VStack {
 
-                if viewModel.savedArticles.isEmpty {
-                    EmptyStateView(viewModel.emptyState)
+                switch viewModel.viewState {
 
-                } else {
+                case .loading:
+                    ProgressView(viewModel.loadingText)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .foregroundColor(DesignSystem.colors.secondaryText)
+                
+                case .loaded(let articles):
                     List {
-                        ForEach(viewModel.savedArticles, id: \.id) { article in
+                        ForEach(articles, id: \.id) { article in
                             FavoriteRowView(article: article, onTapFavorite: viewModel.onTapFavorite)
                         }
                         .onDelete(perform: viewModel.deleteArticles)
                     }
                     .listStyle(PlainListStyle())
+                
+                case .empty(let emptyState):
+                    EmptyStateView(emptyState)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .navigationTitle("Favorites")
+            .navigationTitle(viewModel.title)
             .onAppear {
                 viewModel.loadFavorites()
             }

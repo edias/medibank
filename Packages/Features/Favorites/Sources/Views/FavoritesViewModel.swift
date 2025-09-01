@@ -10,21 +10,24 @@ import SwiftUI
 import Combine
 import Storage
 
-import CommonUI
-
 @MainActor
 final class FavoritesViewModel: ObservableObject {
     
-    @Published var savedArticles: [Article] = []
+    var title: String { Constants.title }
+    var loadingText: String { Constants.loadingText }
+    
+    @Published
+    private(set) var viewState: FavoritesViewState = .loading
+    
+    var savedArticles: [Article] {
+        guard case .loaded(let articles) = viewState else { return [] }
+        return articles
+    }
     
     private let articlesStorage: ArticlesStorage
     private var cancellables = Set<AnyCancellable>()
 
     let onTapFavorite: (Article) -> Void
-
-    var emptyState: EmptyState {
-        .init(iconName: "heart", title: "No Favorites Yet", description: "Save articles from Headlines to see them here")
-    }
 
     init(articlesStorage: ArticlesStorage, onTapFavorite: @escaping (Article) -> Void) {
 
@@ -34,18 +37,27 @@ final class FavoritesViewModel: ObservableObject {
         articlesStorage.articlesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] articles in
-                self?.savedArticles = articles
+                self?.updateViewState(with: articles)
             }
             .store(in: &cancellables)
     }
     
     func loadFavorites() {
-        savedArticles = articlesStorage.articles
+        viewState = .loading
+        let articles = articlesStorage.articles
+        updateViewState(with: articles)
+    }
+    
+    private func updateViewState(with articles: [Article]) {
+        viewState = articles.isEmpty ? .empty(StateFactory.makeEmptyFavoritesState()) : .loaded(articles)
     }
         
     func deleteArticles(at offsets: IndexSet) {
+
+        guard case .loaded(let articles) = viewState else { return }
+        
         for index in offsets {
-            let article = savedArticles[index]
+            let article = articles[index]
             articlesStorage.removeArticle(article.url)
         }
     }
